@@ -6,8 +6,16 @@ from pot.ui.base.screen import RefreshTableScreen
 class ImagesScreen(RefreshTableScreen):
     """An images listing widget."""
 
+    BINDINGS = [
+        ("d", "remove", "Remove"),
+    ]
+
     def __init__(self):
         super().__init__(Runtime.get_instance())
+
+    async def action_remove(self):
+        image = self.get_selection()
+        await self.get_backend().images.remove(image)
 
     def _get_columns(self):
         return ["id", "repository", "tag", "created", "size"]
