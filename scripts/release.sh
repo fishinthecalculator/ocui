@@ -13,7 +13,7 @@ verbose=0
 publish=0
 bump="INVALID"
 
-required_commands=("getopt" "pysemver" "git")
+required_commands=("getopt" "pysemver" "git" "poetry")
 valid_types=('major' 'minor' 'patch' 'prerelease' 'build')
 
 error() {
