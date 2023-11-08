@@ -22,7 +22,7 @@
 
 (define %source-commit
   (guard (ex
-          ((wrong-type-arg-exception? ex)
+          ((eq? (exception-kind ex) 'wrong-type-arg)
            ;; We are in guix pull.
            "0000000000000000000000000000000000000000"))
     (read-line
