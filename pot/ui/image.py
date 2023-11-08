@@ -8,6 +8,7 @@ class ImagesScreen(RefreshTableScreen):
 
     BINDINGS = [
         ("d", "remove", "Remove"),
+        ("p", "pull", "Pull"),
     ]
 
     def __init__(self):
@@ -16,6 +17,10 @@ class ImagesScreen(RefreshTableScreen):
     async def action_remove(self):
         image = self.get_selection()
         await self.get_backend().images.remove(image)
+
+    async def action_pull(self):
+        image = self.get_selection()
+        await self.get_backend().images.pull(image)
 
     def _get_columns(self):
         return ["id", "repository", "tag", "created", "size"]
