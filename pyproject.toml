@@ -7,7 +7,9 @@ readme = "README.md"
 
 [tool.poetry.dependencies]
 python = "^3.10"
+appdirs = "~1.4"
 textual = "~0.41"
+toml = "~0.10"
 
 [tool.poetry.dev-dependencies]
 flake8 = "~6.1"

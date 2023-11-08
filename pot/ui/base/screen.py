@@ -8,7 +8,7 @@ from textual.widgets import Footer, DataTable
 
 from pot.oci.runtime import Runtime
 from pot.ui.base.header import PotHeader, PotBar
-from pot.utils import poll_command
+from pot.ui.base.utils import poll_command
 
 
 class MetaScreen(type(Screen), ABCMeta):
