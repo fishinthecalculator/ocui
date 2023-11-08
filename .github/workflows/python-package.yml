@@ -27,7 +27,7 @@ jobs:
     - name: Install dependencies
       run: |
         python -m pip install --upgrade pip
-        apt-get install poetry
+        sudo apt-get install poetry
         poetry install
     - name: Lint with flake8
       run: |
