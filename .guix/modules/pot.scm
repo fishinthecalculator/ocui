@@ -12,6 +12,7 @@
   ;; Temporary, when python-textual-0.41 is upstreamed
   ;; this dependency can be dropped.
   #:use-module (small-guix packages python-xyz)
+  #:use-module (ice-9 exceptions)
   #:use-module (ice-9 rdelim)
   #:use-module (ice-9 popen)
   #:use-module (srfi srfi-1))
