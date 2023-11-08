@@ -12,7 +12,6 @@
   ;; Temporary, when python-textual-0.41 is upstreamed
   ;; this dependency can be dropped.
   #:use-module (small-guix packages python-xyz)
-  #:use-module (ice-9 exceptions)
   #:use-module (ice-9 rdelim)
   #:use-module (ice-9 popen)
   #:use-module (srfi srfi-1))
@@ -21,12 +20,13 @@
                                    "/../.."))
 
 (define %source-commit
-  (guard (ex
-          ((eq? (exception-kind ex) 'wrong-type-arg)
-           ;; We are in guix pull.
-           "0000000000000000000000000000000000000000"))
-    (read-line
-     (open-input-pipe "git show HEAD | head -1 | cut -d ' ' -f 2"))))
+  (let ((git (which "git"))
+        (head (which "head"))
+        (cut (which "cut")))
+    (if (and git head cut)
+        (read-line
+         (open-input-pipe "git show HEAD | head -1 | cut -d ' ' -f 2"))
+        "0000000000000000000000000000000000000000")))
 
 (define-public pot.git
   (let ((version (with-input-from-file
