@@ -31,7 +31,7 @@ do
 	then
 		# Only use the hook when pushing to Gitlab.
 		case "$2" in
-		    *.gitlab.com*)
+		    *.github.com*)
 			exec make authenticate
 			exit 127
 			;;
