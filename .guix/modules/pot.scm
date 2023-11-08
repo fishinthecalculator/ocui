@@ -20,13 +20,12 @@
                                    "/../.."))
 
 (define %source-commit
-  (let ((commit (read-line
-                  (open-input-pipe "git show HEAD | head -1 | cut -d ' ' -f 2"))))
-    (if (and (list? commit)
-             (eq? (first commit) #\eot))
-        ;; We are in guix pull.
-        "0000000000000000000000000000000000000000"
-        commit)))
+  (guard (ex
+          ((wrong-type-arg-exception? ex)
+           ;; We are in guix pull.
+           "0000000000000000000000000000000000000000"))
+    (read-line
+     (open-input-pipe "git show HEAD | head -1 | cut -d ' ' -f 2"))))
 
 (define-public pot.git
   (let ((version (with-input-from-file
