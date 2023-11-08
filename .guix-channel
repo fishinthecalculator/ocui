@@ -1,5 +1,16 @@
 ;; This file lets us present this repo as a Guix channel.
 
 (channel
-  (version 0)
-  (directory ".guix/modules"))  ;look for package modules under .guix/modules/
+ (version 0)
+ (directory ".guix/modules")  ;look for package modules under .guix/modules/
+ ;; Temporary, required until python-textual-0.41 isn't upstreamed.
+ (dependencies
+  (channel
+   (name small-guix)
+   (url "https://gitlab.com/orang3/small-guix")
+   ;; Enable signature verification:
+   (introduction
+    (channel-introduction
+     (version 0)
+     (commit "940e21366a8c986d1e10a851c7ce62223b6891ef")
+     (signer "D088 4467 87F7 CBB2 AE08  BE6D D075 F59A 4805 49C3"))))))
