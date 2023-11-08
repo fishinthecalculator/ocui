@@ -10,6 +10,7 @@ python = "^3.10"
 textual = "~0.41"
 
 [tool.poetry.dev-dependencies]
+flake8 = "~6.1"
 textual-dev = "~1.2"
 
 [build-system]
