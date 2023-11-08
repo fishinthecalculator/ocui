@@ -36,6 +36,9 @@ jobs:
         with:
           path: ./.venv
           key: venv-${{ hashFiles('poetry.lock') }}
+      - name: Install dependencies
+        run: |
+          poetry install
       - name: Lint with flake8
         run: |
           # stop the build if there are Python syntax errors or undefined names
