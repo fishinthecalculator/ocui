@@ -10,16 +10,35 @@ from pot.ui.base.header import PotHeader, PotBar
 from pot.utils import poll_command
 
 
-class MetaScreen(ABCMeta, type(Screen)):
+class MetaScreen(type(Screen), ABCMeta):
     pass
 
 
-class RefreshTableScreen(ABC, Screen, metaclass=MetaScreen):
-    """A table listing widget."""
+class BaseScreen(Screen, ABC, metaclass=MetaScreen):
+    """The base pot screen."""
     def __init__(self, oci_backend: Runtime):
         super().__init__()
-        self.table = DataTable()
         self.oci_backend = oci_backend
+
+    @abstractmethod
+    def _compose(self):
+        pass
+
+    def get_backend(self):
+        return self.oci_backend
+
+    def compose(self) -> ComposeResult:
+        yield PotHeader()
+        yield PotBar()
+        yield from self._compose()
+        yield Footer()
+
+
+class RefreshTableScreen(BaseScreen, ABC):
+    """A table listing screen."""
+    def __init__(self, oci_backend: Runtime):
+        super().__init__(oci_backend)
+        self.table = DataTable()
 
     @abstractmethod
     def _get_columns(self):
@@ -54,19 +73,13 @@ class RefreshTableScreen(ABC, Screen, metaclass=MetaScreen):
 
             self.table.move_cursor(row=old_selection_index)
 
-    def get_backend(self):
-        return self.oci_backend
-
     def get_selection(self):
         row_key, _ = self.table.coordinate_to_cell_key(self.table.cursor_coordinate)
         row = self.table.get_row(row_key)
         return self._row_to_value(row)
 
-    def compose(self) -> ComposeResult:
-        yield PotHeader()
-        yield PotBar()
+    def _compose(self) -> ComposeResult:
         yield self.table
-        yield Footer()
 
     async def on_mount(self) -> None:
         self.table.cursor_type = "row"
