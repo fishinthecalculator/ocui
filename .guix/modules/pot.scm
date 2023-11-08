@@ -1,6 +1,7 @@
 ;;; SPDX-License-Identifier: GPL-3.0-or-later
 
 (define-module (pot)
+  #:use-module (gnu packages python-build)
   #:use-module (gnu packages python-xyz)
   #:use-module (guix build utils)
   #:use-module (guix build-system pyproject)
@@ -59,7 +60,9 @@
                                  ;; There are no unit tests currently.
                                  (delete 'check))))
      (native-inputs (list poetry))
-     (propagated-inputs (list python-textual-0.41))
+     (propagated-inputs (list python-appdirs
+                              python-textual-0.41
+                              python-toml))
      (home-page
       "https://github.com/fishinthecalculator/pot")
      (synopsis
