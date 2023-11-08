@@ -39,7 +39,7 @@ class PotApp(App):
     """A Textual app to manage OCI containers."""
 
     COMMANDS = App.COMMANDS | {ScreensCommands}
-    CSS_PATH = get_tcss_path("potbar")
+    CSS_PATH = list(map(get_tcss_path, ["header", "body"]))
     BINDINGS = [
         ("q", "quit", "Quit")
     ]

@@ -2,6 +2,7 @@ from abc import ABC, abstractmethod, ABCMeta
 
 from textual import work
 from textual.app import ComposeResult
+from textual.containers import Vertical
 from textual.screen import Screen
 from textual.widgets import Footer, DataTable
 
@@ -16,9 +17,11 @@ class MetaScreen(type(Screen), ABCMeta):
 
 class BaseScreen(Screen, ABC, metaclass=MetaScreen):
     """The base pot screen."""
-    def __init__(self, oci_backend: Runtime):
+    def __init__(self, oci_backend: Runtime, container_title: str):
         super().__init__()
         self.oci_backend = oci_backend
+        self.container = Vertical(id="container")
+        self.container.border_title = container_title
 
     @abstractmethod
     def _compose(self):
@@ -27,17 +30,21 @@ class BaseScreen(Screen, ABC, metaclass=MetaScreen):
     def get_backend(self):
         return self.oci_backend
 
+    def get_container_title(self):
+        return self.container.border_title
+
     def compose(self) -> ComposeResult:
         yield PotHeader()
         yield PotBar()
-        yield from self._compose()
+        with self.container:
+            yield from self._compose()
         yield Footer()
 
 
 class RefreshTableScreen(BaseScreen, ABC):
     """A table listing screen."""
-    def __init__(self, oci_backend: Runtime):
-        super().__init__(oci_backend)
+    def __init__(self, oci_backend: Runtime, container_title: str):
+        super().__init__(oci_backend, container_title)
         self.table = DataTable()
 
     @abstractmethod
@@ -91,6 +98,6 @@ class RefreshTableScreen(BaseScreen, ABC):
 
     @work(exclusive=True)
     async def refresh_screen(self) -> None:
-        """Update the weather for the given city."""
+        """Update the table for the current screen."""
         async for value in poll_command(self._compute_value):
             self._refresh_table(value)

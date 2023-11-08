@@ -1,0 +1,7 @@
+#container {
+    border: round $primary;
+}
+
+#container > DataTable {
+    width: 100%;
+}

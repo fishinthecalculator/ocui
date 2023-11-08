@@ -14,7 +14,7 @@ class ContainersScreen(RefreshTableScreen):
     ]
 
     def __init__(self):
-        super().__init__(Runtime.get_instance())
+        super().__init__(Runtime.get_instance(), "containers")
 
     async def action_inspect(self):
         await self.get_backend().containers.inspect()

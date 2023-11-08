@@ -12,7 +12,7 @@ class ImagesScreen(RefreshTableScreen):
     ]
 
     def __init__(self):
-        super().__init__(Runtime.get_instance())
+        super().__init__(Runtime.get_instance(), "images")
 
     async def action_remove(self):
         image = self.get_selection()
