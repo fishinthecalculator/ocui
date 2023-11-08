@@ -4,6 +4,10 @@
 ![Python versions](https://raw.githubusercontent.com/fishinthecalculator/pot/main/.img/python.svg)
 ![License](https://raw.githubusercontent.com/fishinthecalculator/pot/main/.img/license.svg)
 
+`pot` is a terminal user interface to facilitate the most common tasks around OCI containers running on a single host.
+
+![pot screenshot](https://raw.githubusercontent.com/fishinthecalculator/pot/main/.img/screenshot.png)
+
 ## Contributing
 
 All contributions are welcome. If you have commit access please remember to setup the authentication hook with

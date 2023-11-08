@@ -1,7 +1,7 @@
 from textual.app import ComposeResult
 from textual.containers import Vertical, VerticalScroll
 from textual.screen import ModalScreen
-from textual.widgets import Markdown, Footer, Label
+from textual.widgets import Footer, Label
 
 from pot.ui.base.header import PotHeader
 

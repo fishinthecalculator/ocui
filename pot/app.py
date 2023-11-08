@@ -3,7 +3,7 @@ from functools import partial
 from textual.app import App
 from textual.command import Provider, Hits, Hit
 
-from pot.ui.container import ContainersScreen, ContainerLogScreen
+from pot.ui.container import ContainersScreen
 from pot.ui.image import ImagesScreen
 from pot.ui.volume import VolumesScreen
 from pot.utils import get_tcss_path
