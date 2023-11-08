@@ -1,5 +1,9 @@
 # `pot`
 
+[![Python package](https://github.com/fishinthecalculator/pot/actions/workflows/python-package.yml/badge.svg?branch=main)](https://github.com/fishinthecalculator/pot/actions/workflows/python-package.yml) 
+![Python versions](https://raw.githubusercontent.com/fishinthecalculator/pot/main/.img/python.svg)
+![License](https://raw.githubusercontent.com/fishinthecalculator/pot/main/.img/license.svg)
+
 ## Contributing
 
 All contributions are welcome. If you have commit access please remember to setup the authentication hook with
