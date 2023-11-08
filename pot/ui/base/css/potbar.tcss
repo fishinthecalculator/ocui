@@ -1,0 +1,16 @@
+PotBar {
+    layout: horizontal;
+    height: 8;
+    margin: 1;
+    min-width: 50;
+    padding: 1;
+}
+
+#context {
+    dock: left;
+}
+
+#logo {
+    dock: right;
+    width: 18;
+}

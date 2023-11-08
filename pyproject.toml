@@ -1,0 +1,20 @@
+[tool.poetry]
+name = "pot"
+version = "0.0.0"
+description = "This is a simple and handy text based GUI utility for dealing with boring and repetitive tasks when managing containers."
+authors = ["Giacomo Leidi <giacomo.leidi@suse.com>"]
+readme = "README.md"
+
+[tool.poetry.dependencies]
+python = "^3.10"
+textual = "~0.41"
+
+[tool.poetry.dev-dependencies]
+textual-dev = "~1.2"
+
+[build-system]
+requires = ["poetry-core"]
+build-backend = "poetry.core.masonry.api"
+
+[tool.poetry.scripts]
+pot="pot.app:main"
