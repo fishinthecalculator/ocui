@@ -18,7 +18,7 @@ class Container:
     def from_dict(dict_object):
         created = dict_object.get("CreatedAt", None)
         if created:
-            created = datetime.strptime(created, DATETIME_FORMAT_STRING)
+            created = Container.parse_created(created)
         ports = dict_object.get("Ports")
         if ports and ports is str:
             ports = list(ports)
@@ -39,11 +39,15 @@ class Container:
     def format_list_of_strings(list_of_strings):
         return " ".join(list_of_strings)
 
-    def get_key(self):
-        return self.container_id
+    @staticmethod
+    def parse_created(created: str) -> datetime:
+        return datetime.strptime(created, DATETIME_FORMAT_STRING)
 
     def format_created(self) -> str:
         return self.created.strftime(DATETIME_FORMAT_STRING)
+
+    def get_key(self):
+        return self.container_id
 
     def format_names(self):
         if self.names is str:

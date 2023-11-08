@@ -30,6 +30,10 @@ class RefreshTableScreen(ABC, Screen, metaclass=MetaScreen):
         pass
 
     @abstractmethod
+    def _row_to_value(self, row):
+        pass
+
+    @abstractmethod
     async def _compute_value(self) -> list:
         pass
 
@@ -38,12 +42,25 @@ class RefreshTableScreen(ABC, Screen, metaclass=MetaScreen):
             row = self._value_to_row(r)
             self.table.add_row(*row, key=r.get_key())
 
+    def _refresh_table(self, new_value):
+        old_selection_index = self.table.cursor_coordinate.row
+        self.table.clear()
+
+        if new_value:
+            self._add_rows(new_value)
+
+            if old_selection_index > len(new_value):
+                old_selection_index = len(new_value)
+
+            self.table.move_cursor(row=old_selection_index)
+
     def get_backend(self):
         return self.oci_backend
 
-    def get_selection(self) -> str:
+    def get_selection(self):
         row_key, _ = self.table.coordinate_to_cell_key(self.table.cursor_coordinate)
-        return row_key.value
+        row = self.table.get_row(row_key)
+        return self._row_to_value(row)
 
     def compose(self) -> ComposeResult:
         yield PotHeader()
@@ -63,5 +80,4 @@ class RefreshTableScreen(ABC, Screen, metaclass=MetaScreen):
     async def refresh_screen(self) -> None:
         """Update the weather for the given city."""
         async for value in poll_command(self._compute_value):
-            self.table.clear()
-            self._add_rows(value)
+            self._refresh_table(value)

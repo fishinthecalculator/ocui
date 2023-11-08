@@ -16,7 +16,7 @@ class Image:
     def from_dict(dict_object):
         created = dict_object.get("CreatedAt", None)
         if created:
-            created = datetime.strptime(created, DATETIME_FORMAT_STRING)
+            created = Image.parse_created(created)
         return Image(
             repository=dict_object["Repository"],
             tag=dict_object.get("Tag", "latest"),
@@ -25,8 +25,12 @@ class Image:
             size=dict_object.get("Size", None)
         )
 
-    def get_key(self):
-        return self.image_id
+    @staticmethod
+    def parse_created(created: str) -> datetime:
+        return datetime.strptime(created, DATETIME_FORMAT_STRING)
 
     def format_created(self) -> str:
         return self.created.strftime(DATETIME_FORMAT_STRING)
+
+    def get_key(self):
+        return self.image_id

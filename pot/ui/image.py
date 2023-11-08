@@ -1,3 +1,4 @@
+from pot.oci.dataclass.image import Image
 from pot.oci.runtime import Runtime
 from pot.ui.base.screen import RefreshTableScreen
 
@@ -14,9 +15,18 @@ class ImagesScreen(RefreshTableScreen):
     async def _compute_value(self):
         return await self.get_backend().images.ls()
 
-    def _value_to_row(self, image):
+    def _value_to_row(self, image: Image):
         return (image.image_id,
                 image.repository,
                 image.tag,
                 image.format_created(),
                 image.size)
+
+    def _row_to_value(self, row):
+        return Image(
+            image_id=row[0],
+            repository=row[1],
+            tag=row[2],
+            created=Image.parse_created(row[3]),
+            size=row[4]
+        )
