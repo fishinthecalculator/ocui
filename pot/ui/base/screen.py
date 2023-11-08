@@ -20,8 +20,8 @@ class BaseScreen(Screen, ABC, metaclass=MetaScreen):
     def __init__(self, oci_backend: Runtime, container_title: str):
         super().__init__()
         self.oci_backend = oci_backend
-        self.container = Vertical(id="container")
-        self.container.border_title = container_title
+        self.body = Vertical(id="container")
+        self.body.border_title = container_title
 
     @abstractmethod
     def _compose(self):
@@ -30,13 +30,13 @@ class BaseScreen(Screen, ABC, metaclass=MetaScreen):
     def get_backend(self):
         return self.oci_backend
 
-    def get_container_title(self):
-        return self.container.border_title
+    def get_body_title(self):
+        return self.body.border_title
 
     def compose(self) -> ComposeResult:
         yield PotHeader()
         yield PotBar()
-        with self.container:
+        with self.body:
             yield from self._compose()
         yield Footer()
 
@@ -81,9 +81,12 @@ class RefreshTableScreen(BaseScreen, ABC):
             self.table.move_cursor(row=old_selection_index)
 
     def get_selection(self):
-        row_key, _ = self.table.coordinate_to_cell_key(self.table.cursor_coordinate)
-        row = self.table.get_row(row_key)
-        return self._row_to_value(row)
+        if self.table.row_count > 0:
+            row_key, _ = self.table.coordinate_to_cell_key(self.table.cursor_coordinate)
+            row = self.table.get_row(row_key)
+            return self._row_to_value(row)
+        else:
+            return None
 
     def _compose(self) -> ComposeResult:
         yield self.table

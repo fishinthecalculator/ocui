@@ -1,6 +1,7 @@
 import asyncio
 import json
 from abc import ABC
+from asyncio.subprocess import Process
 
 
 class RuntimeCommand(ABC):
@@ -9,9 +10,12 @@ class RuntimeCommand(ABC):
         self.runtime_entrypoint = runtime_entrypoint
         self.name = name
 
-    async def _exec(self, args: list[str]) -> str | None:
+    async def _exec(self, args: list[str]) -> Process:
         args = [self.name] + args
-        process = await asyncio.create_subprocess_exec(self.runtime_entrypoint, *args, stdout=asyncio.subprocess.PIPE)
+        return await asyncio.create_subprocess_exec(self.runtime_entrypoint, *args, stdout=asyncio.subprocess.PIPE)
+
+    async def _exec_collect(self, args: list[str]) -> str | None:
+        process = await self._exec(args)
         data, _ = await process.communicate()
         if process.returncode != 0:
             raise RuntimeError(
@@ -22,7 +26,7 @@ class RuntimeCommand(ABC):
             return None
 
     async def _exec_json_string(self, args: list[str]) -> list[dict]:
-        output = await self._exec(args)
+        output = await self._exec_collect(args)
         if not output:
             return []
         else:

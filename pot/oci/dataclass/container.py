@@ -1,7 +1,17 @@
 from dataclasses import dataclass
 from datetime import datetime
+from enum import Enum
 
 from pot.oci.dataclass import DATETIME_FORMAT_STRING
+
+
+class ContainerState(Enum):
+    CREATED = "created"
+    RUNNING = "running"
+    RESTARTING = "restarting"
+    EXITED = "exited"
+    PAUSED = "paused"
+    DEAD = "dead"
 
 
 @dataclass
@@ -10,7 +20,7 @@ class Container:
     command: str
     image_name: str
     created: datetime
-    status: str
+    state: ContainerState
     ports: list[str]
     names: list[str]
 
@@ -30,7 +40,7 @@ class Container:
             command=dict_object["Command"],
             image_name=dict_object["Image"],
             created=created,
-            status=dict_object["Status"],
+            state=ContainerState(dict_object["State"]),
             ports=ports,
             names=names
         )

@@ -3,9 +3,7 @@ from functools import partial
 from textual.app import App
 from textual.command import Provider, Hits, Hit
 
-from pot.config import get_config
-from pot.oci.runtime import Runtime
-from pot.ui.container import ContainersScreen
+from pot.ui.container import ContainersScreen, ContainerLogScreen
 from pot.ui.image import ImagesScreen
 from pot.ui.volume import VolumesScreen
 from pot.utils import get_tcss_path
@@ -56,7 +54,6 @@ class PotApp(App):
 
 def main():
     app = PotApp()
-    Runtime.get_instance(get_config()["oci"]["runtime"])
     app.run()
 
 

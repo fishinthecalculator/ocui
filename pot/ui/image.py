@@ -7,20 +7,35 @@ class ImagesScreen(RefreshTableScreen):
     """An images listing widget."""
 
     BINDINGS = [
+        ("i", "inspect", "Inspect"),
         ("d", "remove", "Remove"),
         ("p", "pull", "Pull"),
+        ("r", "run", "Run container")
     ]
 
     def __init__(self):
         super().__init__(Runtime.get_instance(), "images")
 
+    async def action_inspect(self):
+        image = self.get_selection()
+        if image:
+            await self.get_backend().images.inspect(image)
+
     async def action_remove(self):
         image = self.get_selection()
-        await self.get_backend().images.remove(image)
+        if image:
+            await self.get_backend().images.remove(image)
 
     async def action_pull(self):
         image = self.get_selection()
-        await self.get_backend().images.pull(image)
+        if image:
+            await self.get_backend().images.pull(image)
+
+    async def action_run(self):
+        #image = self.get_selection()
+        # if image:
+            # await self.get_backend().images.remove(image)
+        pass
 
     def _get_columns(self):
         return ["id", "repository", "tag", "created", "size"]

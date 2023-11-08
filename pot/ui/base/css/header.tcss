@@ -12,5 +12,6 @@ PotBar {
 
 #logo {
     dock: right;
+    color: $primary;
     width: 18;
 }

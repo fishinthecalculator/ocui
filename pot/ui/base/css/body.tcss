@@ -2,6 +2,6 @@
     border: round $primary;
 }
 
-#container > DataTable {
-    width: 100%;
+ContainerLogScreen > #rich_log {
+    border: round $primary;
 }
