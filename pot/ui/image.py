@@ -1,6 +1,7 @@
 from pot.oci.dataclass.image import Image
 from pot.oci.runtime import Runtime
 from pot.ui.base.screen import RefreshTableScreen
+from pot.ui.inspect import InspectScreen
 
 
 class ImagesScreen(RefreshTableScreen):
@@ -19,7 +20,8 @@ class ImagesScreen(RefreshTableScreen):
     async def action_inspect(self):
         image = self.get_selection()
         if image:
-            await self.get_backend().images.inspect(image)
+            image_details = await self.get_backend().images.inspect(image)
+            await self.app.push_screen(InspectScreen(image.repository, image_details))
 
     async def action_remove(self):
         image = self.get_selection()

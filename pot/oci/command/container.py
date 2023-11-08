@@ -9,7 +9,7 @@ class ContainerCommand(RuntimeCommand):
         super().__init__(runtime_entrypoint, "container")
 
     async def inspect(self, container: Container) -> dict:
-        dict_list = await self._exec_json_string(["inspect", container.container_id, "--format", "{{ json . }}"])
+        dict_list = await self._exec_json_list(["inspect", container.container_id, "--format", "{{ json . }}"])
         return dict_list[0]
 
     async def log(self, container: Container) -> Process:
@@ -19,7 +19,7 @@ class ContainerCommand(RuntimeCommand):
         return process
 
     async def ls(self) -> list[Container]:
-        dict_list = await self._exec_json_string(["ls", "-a", "--format", "{{ json . }}"])
+        dict_list = await self._exec_json_list(["ls", "-a", "--format", "{{ json . }}"])
         return [Container.from_dict(container_dict) for container_dict in dict_list]
 
     async def remove(self, container: Container) -> None:

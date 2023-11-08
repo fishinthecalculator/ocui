@@ -7,6 +7,7 @@ from pot.oci.dataclass.container import Container, ContainerState
 from pot.oci.runtime import Runtime
 from pot.ui.base.screen import RefreshTableScreen, BaseScreen
 from pot.ui.base.utils import stream_command
+from pot.ui.inspect import InspectScreen
 
 
 class ContainerLogScreen(BaseScreen, ModalScreen):
@@ -16,7 +17,7 @@ class ContainerLogScreen(BaseScreen, ModalScreen):
                 ("escape", "app.pop_screen", "Back")]
 
     def __init__(self, container: Container):
-        super().__init__(Runtime.get_instance(), f"{container.container_id}/logs")
+        super().__init__(Runtime.get_instance(), f"{container.container_id}\\logs")
         self.rich_log = RichLog(id="rich_log")
         self.container = container
 
@@ -51,7 +52,10 @@ class ContainersScreen(RefreshTableScreen):
         super().__init__(Runtime.get_instance(), "containers")
 
     async def action_inspect(self):
-        await self.get_backend().containers.inspect()
+        container = self.get_selection()
+        if container:
+            container_details = await self.get_backend().containers.inspect(container)
+            await self.app.push_screen(InspectScreen(container.container_id, container_details))
 
     async def action_log(self):
         container = self.get_selection()

@@ -1,0 +1,7 @@
+#inspect_root {
+    border: round $primary;
+}
+
+#inspect_root > Vertical {
+    border: round $primary;
+}

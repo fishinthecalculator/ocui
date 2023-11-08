@@ -25,7 +25,7 @@ class RuntimeCommand(ABC):
         else:
             return None
 
-    async def _exec_json_string(self, args: list[str]) -> list[dict]:
+    async def _exec_json_list(self, args: list[str]) -> list[dict]:
         output = await self._exec_collect(args)
         if not output:
             return []
