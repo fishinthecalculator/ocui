@@ -88,6 +88,14 @@ optional = false
 python-versions = "!=3.0.*,!=3.1.*,!=3.2.*,!=3.3.*,!=3.4.*,!=3.5.*,!=3.6.*,>=2.7"
 
 [[package]]
+name = "debugpy"
+version = "1.6.7.post1"
+description = "An implementation of the Debug Adapter Protocol for Python"
+category = "dev"
+optional = false
+python-versions = ">=3.7"
+
+[[package]]
 name = "flake8"
 version = "6.1.0"
 description = "the modular source code checker: pep8 pyflakes and co"
@@ -348,7 +356,7 @@ testing = ["pytest (>=6)", "pytest-checkdocs (>=2.4)", "pytest-cov", "pytest-ena
 [metadata]
 lock-version = "1.1"
 python-versions = "^3.10"
-content-hash = "2a8deafdab7e2563aae5057c2bbc179093e3aab24ba43362e366d0341cf8c350"
+content-hash = "4a9cf2c1ef05cb390c79366e0b3c56cba6eff4a30b61a607654f55c7678eceff"
 
 [metadata.files]
 aiohttp = []
@@ -359,6 +367,7 @@ attrs = []
 charset-normalizer = []
 click = []
 colorama = []
+debugpy = []
 flake8 = []
 frozenlist = []
 idna = []

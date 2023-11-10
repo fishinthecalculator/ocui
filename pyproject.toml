@@ -13,6 +13,7 @@ toml = "~0.10"
 
 [tool.poetry.dev-dependencies]
 flake8 = "~6.1"
+debugpy = "~1.6"
 textual-dev = "~1.2"
 
 [build-system]
