@@ -85,6 +85,3 @@ class ContainersScreen(RefreshTableScreen):
 
     def _value_to_row(self, container: Container, spec: list[str]):
         return container.to_tuple(spec)
-
-    def _row_to_value(self, row: tuple, spec: list[str]):
-        return Container.from_tuple(row, spec)

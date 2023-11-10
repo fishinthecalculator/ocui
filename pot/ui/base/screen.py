@@ -45,6 +45,7 @@ class RefreshTableScreen(BaseScreen, ABC):
     """A table listing screen."""
     def __init__(self, oci_backend: Runtime, container_title: str):
         super().__init__(oci_backend, container_title)
+        self.value = []
         self.table = DataTable()
 
     @abstractmethod
@@ -56,10 +57,6 @@ class RefreshTableScreen(BaseScreen, ABC):
         pass
 
     @abstractmethod
-    def _row_to_value(self, row, spec: list[str]):
-        pass
-
-    @abstractmethod
     async def _compute_value(self) -> list:
         pass
 
@@ -68,23 +65,21 @@ class RefreshTableScreen(BaseScreen, ABC):
             row = self._value_to_row(r, self._get_columns())
             self.table.add_row(*row, key=r.get_key())
 
-    def _refresh_table(self, new_value):
+    def _refresh_table(self):
         old_selection_index = self.table.cursor_coordinate.row
         self.table.clear()
 
-        if new_value:
-            self._add_rows(new_value)
+        if self.value:
+            self._add_rows(self.value)
 
-            if old_selection_index > len(new_value):
-                old_selection_index = len(new_value)
+            if old_selection_index > len(self.value):
+                old_selection_index = len(self.value)
 
             self.table.move_cursor(row=old_selection_index)
 
     def get_selection(self):
         if self.table.row_count > 0:
-            row_key, _ = self.table.coordinate_to_cell_key(self.table.cursor_coordinate)
-            row = self.table.get_row(row_key)
-            return self._row_to_value(row, self._get_columns())
+            return self.value[self.table.cursor_coordinate.row]
         else:
             return None
 
@@ -95,7 +90,8 @@ class RefreshTableScreen(BaseScreen, ABC):
         self.table.cursor_type = "row"
         self.table.zebra_stripes = True
         self.table.add_columns(*self._get_columns())
-        self._add_rows(await self._compute_value())
+        self.value = await self._compute_value()
+        self._add_rows(self.value)
 
         self.refresh_screen()
 
@@ -103,4 +99,4 @@ class RefreshTableScreen(BaseScreen, ABC):
     async def refresh_screen(self) -> None:
         """Update the table for the current screen."""
         async for value in poll_command(self._compute_value):
-            self._refresh_table(value)
+            self._refresh_table()

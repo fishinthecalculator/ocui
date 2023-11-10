@@ -48,5 +48,3 @@ class ImagesScreen(RefreshTableScreen):
     def _value_to_row(self, image: Image, spec: list[str]) -> tuple:
         return image.to_tuple(spec)
 
-    def _row_to_value(self, row, spec: list[str]) -> Image:
-        return Image.from_tuple(row, spec)

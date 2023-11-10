@@ -26,13 +26,6 @@ class Image:
         )
 
     @staticmethod
-    def from_tuple(t: tuple, spec: list[str]):
-        kwargs = {k: v for k, v in zip(spec, t)}
-        if kwargs["created"]:
-            kwargs["created"] = Image.parse_created(kwargs["created"])
-        return Image(**kwargs)
-
-    @staticmethod
     def parse_created(created: str) -> datetime:
         return datetime.strptime(created, DATETIME_FORMAT_STRING)
 

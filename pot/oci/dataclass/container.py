@@ -55,16 +55,6 @@ class Container:
             return []
 
     @staticmethod
-    def from_tuple(t: tuple, spec: list[str]):
-        kwargs = {
-            k: v
-            if k not in ["created", "mounts", "state", "ports"]
-            else getattr(Container, f"parse_{k}")(v)
-            for k, v in zip(spec, t)
-        }
-        return Container(**kwargs)
-
-    @staticmethod
     def parse_created(created: str) -> datetime:
         return datetime.strptime(created, DATETIME_FORMAT_STRING)
 
