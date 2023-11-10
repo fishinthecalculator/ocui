@@ -32,5 +32,8 @@ class Image:
     def format_created(self) -> str:
         return self.created.strftime(DATETIME_FORMAT_STRING)
 
-    def get_key(self):
-        return self.image_id
+    def format_reference(self) -> str:
+        return f"{self.repository}:{self.tag}"
+
+    def get_key(self) -> str:
+        return self.format_reference()
