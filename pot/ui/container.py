@@ -86,19 +86,19 @@ class ContainersScreen(RefreshTableScreen):
     def _value_to_row(self, container: Container):
         return (container.container_id,
                 container.command,
-                container.image_name,
+                container.image_ref,
                 container.format_created(),
                 container.state.value,
                 container.format_ports(),
-                container.format_names())
+                container.name)
 
     def _row_to_value(self, row):
         return Container(
             container_id=row[0],
             command=row[1],
-            image_name=row[2],
+            image_ref=row[2],
             created=Container.parse_created(row[3]),
             state=ContainerState(row[4]),
             ports=row[5].split(" "),
-            names=row[6].split(" "),
+            name=row[6],
         )

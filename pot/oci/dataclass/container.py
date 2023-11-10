@@ -18,11 +18,11 @@ class ContainerState(Enum):
 class Container:
     container_id: str
     command: str
-    image_name: str
+    image_ref: str
     created: datetime
     state: ContainerState
     ports: list[str]
-    names: list[str]
+    name: str
 
     @staticmethod
     def from_dict(dict_object):
@@ -32,17 +32,14 @@ class Container:
         ports = dict_object.get("Ports")
         if ports and ports is str:
             ports = list(ports)
-        names = dict_object.get("Names")
-        if names and names is str:
-            names = list(names)
         return Container(
             container_id=dict_object["ID"],
             command=dict_object["Command"],
-            image_name=dict_object["Image"],
+            image_ref=dict_object["Image"],
             created=created,
             state=ContainerState(dict_object["State"]),
             ports=ports,
-            names=names
+            name=dict_object.get("Names")
         )
 
     @staticmethod
@@ -58,11 +55,6 @@ class Container:
 
     def get_key(self):
         return self.container_id
-
-    def format_names(self):
-        if self.names is str:
-            return self.names
-        return Container.format_list_of_strings(self.names)
 
     def format_ports(self):
         if self.ports is str:
