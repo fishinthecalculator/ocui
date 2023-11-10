@@ -52,11 +52,11 @@ class RefreshTableScreen(BaseScreen, ABC):
         pass
 
     @abstractmethod
-    def _value_to_row(self, value):
+    def _value_to_row(self, value, spec: list[str]):
         pass
 
     @abstractmethod
-    def _row_to_value(self, row):
+    def _row_to_value(self, row, spec: list[str]):
         pass
 
     @abstractmethod
@@ -65,7 +65,7 @@ class RefreshTableScreen(BaseScreen, ABC):
 
     def _add_rows(self, rows):
         for r in rows:
-            row = self._value_to_row(r)
+            row = self._value_to_row(r, self._get_columns())
             self.table.add_row(*row, key=r.get_key())
 
     def _refresh_table(self, new_value):
@@ -84,7 +84,7 @@ class RefreshTableScreen(BaseScreen, ABC):
         if self.table.row_count > 0:
             row_key, _ = self.table.coordinate_to_cell_key(self.table.cursor_coordinate)
             row = self.table.get_row(row_key)
-            return self._row_to_value(row)
+            return self._row_to_value(row, self._get_columns())
         else:
             return None
 

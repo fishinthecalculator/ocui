@@ -78,27 +78,13 @@ class ContainersScreen(RefreshTableScreen):
             await self.get_backend().containers.stop(container)
 
     def _get_columns(self):
-        return ["container_id", "command", "image", "created", "state", "ports", "names"]
+        return ["container_id", "command", "image", "created", "state", "ports", "name"]
 
     async def _compute_value(self):
         return await self.get_backend().containers.ls()
 
-    def _value_to_row(self, container: Container):
-        return (container.container_id,
-                container.command,
-                container.image_ref,
-                container.format_created(),
-                container.state.value,
-                container.format_ports(),
-                container.name)
+    def _value_to_row(self, container: Container, spec: list[str]):
+        return container.to_tuple(spec)
 
-    def _row_to_value(self, row):
-        return Container(
-            container_id=row[0],
-            command=row[1],
-            image_ref=row[2],
-            created=Container.parse_created(row[3]),
-            state=ContainerState(row[4]),
-            ports=row[5].split(" "),
-            name=row[6],
-        )
+    def _row_to_value(self, row: tuple, spec: list[str]):
+        return Container.from_tuple(row, spec)

@@ -13,7 +13,7 @@ class Image:
     size: str | None = None
 
     @staticmethod
-    def from_dict(dict_object):
+    def from_dict(dict_object: dict):
         created = dict_object.get("CreatedAt", None)
         if created:
             created = Image.parse_created(created)
@@ -26,8 +26,23 @@ class Image:
         )
 
     @staticmethod
+    def from_tuple(t: tuple, spec: list[str]):
+        kwargs = {k: v for k, v in zip(spec, t)}
+        if kwargs["created"]:
+            kwargs["created"] = Image.parse_created(kwargs["created"])
+        return Image(**kwargs)
+
+    @staticmethod
     def parse_created(created: str) -> datetime:
         return datetime.strptime(created, DATETIME_FORMAT_STRING)
+
+    def to_tuple(self, spec) -> tuple:
+        return tuple(
+            getattr(self, a)
+            if a not in ["created"]
+            else getattr(self, f"format_{a}")()
+            for a in spec
+        )
 
     def format_created(self) -> str:
         return self.created.strftime(DATETIME_FORMAT_STRING)

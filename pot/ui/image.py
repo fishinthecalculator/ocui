@@ -40,23 +40,13 @@ class ImagesScreen(RefreshTableScreen):
         pass
 
     def _get_columns(self):
-        return ["id", "repository", "tag", "created", "size"]
+        return ["image_id", "repository", "tag", "created", "size"]
 
     async def _compute_value(self):
         return await self.get_backend().images.ls()
 
-    def _value_to_row(self, image: Image):
-        return (image.image_id,
-                image.repository,
-                image.tag,
-                image.format_created(),
-                image.size)
+    def _value_to_row(self, image: Image, spec: list[str]) -> tuple:
+        return image.to_tuple(spec)
 
-    def _row_to_value(self, row):
-        return Image(
-            image_id=row[0],
-            repository=row[1],
-            tag=row[2],
-            created=Image.parse_created(row[3]),
-            size=row[4]
-        )
+    def _row_to_value(self, row, spec: list[str]) -> Image:
+        return Image.from_tuple(row, spec)
