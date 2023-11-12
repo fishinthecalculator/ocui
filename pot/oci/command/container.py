@@ -22,6 +22,18 @@ class ContainerCommand(RuntimeCommand):
         dict_list = await self._exec_json_list(["ls", "-a", "--format", "{{ json . }}"])
         return [Container.from_dict(container_dict) for container_dict in dict_list]
 
+    async def run(self, image_ref: str, name: str | None = None, ports: list[str] | None = None, volumes: list[str] | None = None,  remove: bool = False) -> None:
+        args = []
+        if name:
+            args += ["--name", name]
+        if ports:
+            for p in ports:
+                args += ["-p", p]
+        if volumes:
+            for m in volumes:
+                args += ["-v", m]
+        await self._exec_drop(["run", *args, image_ref])
+
     async def remove(self, container: Container) -> None:
         await self._exec_collect(["rm", "-f", container.container_id])
 

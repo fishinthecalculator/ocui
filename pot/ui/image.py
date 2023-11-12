@@ -2,6 +2,7 @@ from pot.oci.dataclass.image import Image
 from pot.oci.runtime import Runtime
 from pot.ui.base.screen import RefreshTableScreen
 from pot.ui.inspect import InspectScreen
+from pot.ui.run import RunContainerScreen
 
 
 class ImagesScreen(RefreshTableScreen):
@@ -34,10 +35,9 @@ class ImagesScreen(RefreshTableScreen):
             await self.get_backend().images.pull(image)
 
     async def action_run(self):
-        #image = self.get_selection()
-        # if image:
-            # await self.get_backend().images.remove(image)
-        pass
+        image = self.get_selection()
+        if image:
+            await self.app.push_screen(RunContainerScreen(self.get_backend(), image))
 
     def _get_columns(self):
         return ["image_id", "repository", "tag", "created", "size"]

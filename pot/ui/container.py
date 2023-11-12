@@ -3,11 +3,12 @@ from textual.app import ComposeResult
 from textual.screen import ModalScreen
 from textual.widgets import RichLog
 
-from pot.oci.dataclass.container import Container, ContainerState
+from pot.oci.dataclass.container import Container
 from pot.oci.runtime import Runtime
 from pot.ui.base.screen import RefreshTableScreen, BaseScreen
 from pot.ui.base.utils import stream_command
 from pot.ui.inspect import InspectScreen
+from pot.ui.run import RunContainerScreen
 
 
 class ContainerLogScreen(BaseScreen, ModalScreen):
@@ -44,7 +45,8 @@ class ContainersScreen(RefreshTableScreen):
         ("i", "inspect", "Inspect"),
         ("l", "log", "Show logs"),
         ("k", "stop", "Stop"),
-        ("r", "remove", "Remove"),
+        ("d", "remove", "Remove"),
+        ("r", "run", "Run container")
         ("s", "start", "Start")
     ]
 
@@ -66,6 +68,9 @@ class ContainersScreen(RefreshTableScreen):
         container = self.get_selection()
         if container:
             await self.get_backend().containers.remove(container)
+
+    async def action_run(self):
+        await self.app.push_screen(RunContainerScreen(self.get_backend()))
 
     async def action_start(self):
         container = self.get_selection()
