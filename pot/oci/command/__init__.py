@@ -10,9 +10,16 @@ class RuntimeCommand(ABC):
         self.runtime_entrypoint = runtime_entrypoint
         self.name = name
 
-    async def _exec(self, args: list[str]) -> Process:
+    async def _exec(self, args: list[str], stdout=asyncio.subprocess.PIPE) -> Process:
         args = [self.name] + args
-        return await asyncio.create_subprocess_exec(self.runtime_entrypoint, *args, stdout=asyncio.subprocess.PIPE)
+        return await asyncio.create_subprocess_exec(self.runtime_entrypoint, *args, stdout=stdout)
+
+    async def _exec_drop(self, args: list[str]) -> None:
+        process = await self._exec(args, stdout=None)
+        await process.wait()
+        if process.returncode != 0:
+            raise RuntimeError(
+                f"{' '.join([self.runtime_entrypoint, *args])} failed with exit code: {process.returncode}")
 
     async def _exec_collect(self, args: list[str]) -> str | None:
         process = await self._exec(args)
