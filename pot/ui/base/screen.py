@@ -65,8 +65,9 @@ class RefreshTableScreen(BaseScreen, ABC):
             row = self._value_to_row(r, self._get_columns())
             self.table.add_row(*row, key=r.get_key())
 
-    def _refresh_table(self):
+    def _refresh_table(self, new_value):
         old_selection_index = self.table.cursor_coordinate.row
+        self.value = new_value
         self.table.clear()
 
         if self.value:
@@ -99,4 +100,4 @@ class RefreshTableScreen(BaseScreen, ABC):
     async def refresh_screen(self) -> None:
         """Update the table for the current screen."""
         async for value in poll_command(self._compute_value):
-            self._refresh_table()
+            self._refresh_table(value)
