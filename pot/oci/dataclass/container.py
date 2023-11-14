@@ -9,6 +9,7 @@ class ContainerState(Enum):
     CREATED = "created"
     RUNNING = "running"
     RESTARTING = "restarting"
+    STOPPING = "stopping"
     EXITED = "exited"
     PAUSED = "paused"
     DEAD = "dead"
