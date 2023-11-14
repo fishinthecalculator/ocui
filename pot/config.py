@@ -61,5 +61,7 @@ def get_config() -> dict:
         valid_config = validate_config(config)
         if valid_config is None:
             raise RuntimeError(f"Invalid configuration: {config_path}")
+        else:
+            return { **DEFAULT_CONFIG, **valid_config }
     else:
         return DEFAULT_CONFIG

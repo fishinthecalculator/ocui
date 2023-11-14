@@ -31,7 +31,7 @@ class Container:
         if created:
             created = Container.parse_created(created)
         return Container(
-            container_id=dict_object["ID"],
+            container_id=dict_object["ID"] if "ID" in dict_object.keys() else dict_object["Id"],
             command=dict_object["Command"],
             image=dict_object["Image"],
             created=created,
@@ -79,7 +79,10 @@ class Container:
         )
 
     def format_created(self) -> str:
-        return self.created.strftime(DATETIME_FORMAT_STRING)
+        if self.created:
+            return self.created.strftime(DATETIME_FORMAT_STRING)
+        else:
+            return ""
 
     def format_ports(self):
         return Container.format_list_of_strings(self.ports)
