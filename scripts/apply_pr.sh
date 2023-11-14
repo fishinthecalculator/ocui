@@ -12,7 +12,7 @@ usage () {
 fork_url="$1"
 branch="$2"
 
-git checkout master
+git checkout main
 
 # Setup
 git remote add forked "$fork_url"
