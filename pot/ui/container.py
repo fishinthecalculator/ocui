@@ -46,7 +46,7 @@ class ContainersScreen(RefreshTableScreen):
         ("l", "log", "Show logs"),
         ("k", "stop", "Stop"),
         ("d", "remove", "Remove"),
-        ("r", "run", "Run container")
+        ("r", "run", "Run container"),
         ("s", "start", "Start")
     ]
 
