@@ -6,9 +6,19 @@ from textual import log
 
 from pot.utils import get_version
 
+CONTAINERS_MODE = "containers"
+IMAGES_MODE = "images"
+VOLUMES_MODE = "volumes"
+
+ALL_MODES = [
+    CONTAINERS_MODE,
+    IMAGES_MODE,
+    VOLUMES_MODE
+]
+
 DEFAULT_CONFIG = {
     "oci": {"runtime": "docker"},
-    "ui": {"refresh_timeout": 10}
+    "ui": {"refresh_timeout": 10, "startup_mode": "containers"}
 }
 
 
@@ -37,11 +47,28 @@ def validate_config(config: dict) -> dict | None:
         if config["oci"]["runtime"] not in ["docker", "podman"]:
             log.error(f"Unsupported runtime: {config['oci']['runtime']}")
             return None
-    if "ui" in config and "refresh_timeout" in config["ui"]:
-        if config["ui"]["refresh_timeout"] <= 0:
+    if "ui" in config:
+        if "refresh_timeout" in config["ui"] and config["ui"]["refresh_timeout"] <= 0:
             log.error(f"UI refresh timeout must be a positive integer: {config['ui']['refresh_timeout']}")
             return None
+        if "startup_mode" in config["ui"] and config["ui"]["startup_mode"] not in ALL_MODES:
+            log.error(f"UI startup mode must be one of {', '.join(ALL_MODES)} but {config['ui']['startup_mode']} was found!")
+            return None
     return config
+
+def merge_configs(first: dict, second: dict) -> dict:
+    """
+    Merges FIRST with SECOND and returns a MERGED dict. MERGED is computed by updating FIRST
+    with SECOND, recursively: all the keys present both in FIRST and SECOND will have SECOND's
+    value. All the others are the union of the keys of FIRST and SECOND.
+    """
+    merged = { **first, **second }
+
+    for k, v in merged.items():
+        if type(v) is dict:
+            merged[k] = merge_configs(first[k], second[k])
+
+    return merged
 
 
 def get_config() -> dict:
@@ -62,6 +89,6 @@ def get_config() -> dict:
         if valid_config is None:
             raise RuntimeError(f"Invalid configuration: {config_path}")
         else:
-            return { **DEFAULT_CONFIG, **valid_config }
+            return merge_configs(DEFAULT_CONFIG, valid_config)
     else:
         return DEFAULT_CONFIG

@@ -3,6 +3,7 @@ from functools import partial
 from textual.app import App
 from textual.command import Provider, Hits, Hit
 
+from pot.config import get_config, CONTAINERS_MODE, IMAGES_MODE, VOLUMES_MODE
 from pot.ui.container import ContainersScreen
 from pot.ui.image import ImagesScreen
 from pot.ui.volume import VolumesScreen
@@ -26,12 +27,12 @@ class ScreensCommands(Provider):
                 help=f"Open the {entity} screen",
             )
 
-        if matcher.match("containers") > 0:
-            yield build_hit("containers")
-        elif matcher.match("images") > 0:
-            yield build_hit("images")
-        elif matcher.match("volumes") > 0:
-            yield build_hit("volumes")
+        if matcher.match(CONTAINERS_MODE) > 0:
+            yield build_hit(CONTAINERS_MODE)
+        elif matcher.match(IMAGES_MODE) > 0:
+            yield build_hit(IMAGES_MODE)
+        elif matcher.match(VOLUMES_MODE) > 0:
+            yield build_hit(VOLUMES_MODE)
 
 
 class PotApp(App):
@@ -43,13 +44,13 @@ class PotApp(App):
         ("q", "quit", "Quit")
     ]
     MODES = {
-        "images": ImagesScreen,
-        "containers": ContainersScreen,
-        "volumes": VolumesScreen,
+        IMAGES_MODE: ImagesScreen,
+        CONTAINERS_MODE: ContainersScreen,
+        VOLUMES_MODE: VolumesScreen,
     }
 
     def on_mount(self) -> None:
-        self.switch_mode("containers")
+        self.switch_mode(get_config()["ui"]["startup_mode"])
 
 
 def main():

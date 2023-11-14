@@ -18,9 +18,9 @@ class Image:
         if created:
             created = Image.parse_created(created)
         return Image(
-            repository=dict_object["Repository"],
-            tag=dict_object.get("Tag", "latest"),
-            image_id=dict_object.get("ID", None),
+            repository=dict_object["Repository"] if "Repository" in dict_object.keys() else dict_object["repository"],
+            tag=dict_object["Tag"] if "Tag" in dict_object.keys() else dict_object["tag"],
+            image_id=dict_object["ID"] if "ID" in dict_object.keys() else dict_object["Id"],
             created=created,
             size=dict_object.get("Size", None)
         )
@@ -38,7 +38,10 @@ class Image:
         )
 
     def format_created(self) -> str:
-        return self.created.strftime(DATETIME_FORMAT_STRING)
+        if self.created:
+            return self.created.strftime(DATETIME_FORMAT_STRING)
+        else:
+            return ""
 
     def format_reference(self) -> str:
         return f"{self.repository}:{self.tag}"
