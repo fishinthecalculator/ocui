@@ -43,15 +43,20 @@ class ContainersScreen(RefreshTableScreen):
 
     BINDINGS = [
         ("i", "inspect", "Inspect"),
+        ("d", "delete", "Delete"),
+        ("r", "run", "Run container"),
         ("l", "log", "Show logs"),
         ("k", "stop", "Stop"),
-        ("d", "remove", "Remove"),
-        ("r", "run", "Run container"),
         ("s", "start", "Start")
     ]
 
     def __init__(self):
         super().__init__(Runtime.get_instance(), "containers")
+
+    async def action_delete(self):
+        container = self.get_selection()
+        if container:
+            await self.get_backend().containers.remove(container)
 
     async def action_inspect(self):
         container = self.get_selection()
@@ -63,11 +68,6 @@ class ContainersScreen(RefreshTableScreen):
         container = self.get_selection()
         if container:
             await self.app.push_screen(ContainerLogScreen(container))
-
-    async def action_remove(self):
-        container = self.get_selection()
-        if container:
-            await self.get_backend().containers.remove(container)
 
     async def action_run(self):
         await self.app.push_screen(RunContainerScreen(self.get_backend()))

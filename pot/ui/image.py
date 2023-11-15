@@ -10,9 +10,9 @@ class ImagesScreen(RefreshTableScreen):
 
     BINDINGS = [
         ("i", "inspect", "Inspect"),
-        ("d", "remove", "Remove"),
-        ("p", "pull", "Pull"),
-        ("r", "run", "Run container")
+        ("d", "delete", "Delete"),
+        ("r", "run", "Run container"),
+        ("p", "pull", "Pull")
     ]
 
     def __init__(self):
@@ -24,7 +24,7 @@ class ImagesScreen(RefreshTableScreen):
             image_details = await self.get_backend().images.inspect(image)
             await self.app.push_screen(InspectScreen(image.repository, image_details))
 
-    async def action_remove(self):
+    async def action_delete(self):
         image = self.get_selection()
         if image:
             await self.get_backend().images.remove(image)
