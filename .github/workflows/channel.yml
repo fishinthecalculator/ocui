@@ -23,9 +23,42 @@ jobs:
       - name: Checkout
         uses: actions/checkout@v3
 
-      # Runs a single command using the runners shell
-      - name: Install GNU Guix
-        uses: PromyLOPh/guix-install-action@v1
+      - name: Guix cache
+        uses: actions/cache@v3
+        with:
+          path: ~/.cache/guix
+          # use a key that (almost) never matches
+          key: guix-cache-${{ github.sha }}
+          restore-keys: |
+            guix-cache-
 
-      - name: Pull channel
-        run: guix pull --channels=.guix/ci-channels.scm
+      - name: Install Guix
+        id: install-guix
+        uses: PromyLOPh/guix-install-action@v1
+        with:
+          channels: |-
+            (list
+             (channel
+              (name 'small-guix)
+              (url "https://gitlab.com/orang3/small-guix")
+              (introduction
+               (make-channel-introduction
+                "940e21366a8c986d1e10a851c7ce62223b6891ef"
+               (openpgp-fingerprint
+                "D088 4467 87F7 CBB2 AE08  BE6D D075 F59A 4805 49C3"))))
+             (channel
+              (name 'pot)
+              (url "https://github.com/fishinthecalculator/pot")
+              (branch "main")
+              (introduction
+               (make-channel-introduction
+                "10ed759852825149eb4b08c9b75777111a92048e"
+               (openpgp-fingerprint
+                "97A2 CB8F B066 F894 9928  CF80 DE9B E0AC E824 6F08"))))
+             %default-guix-channel)
+
+      - name: Build pot.git
+        run: guix build -L .guix/modules pot.git
+
+      - name: Lint pot.git
+        run: guix lint -L .guix/modules pot.git
