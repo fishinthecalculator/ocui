@@ -1,3 +1,4 @@
+from asyncio import create_task
 from asyncio.subprocess import Process
 
 from pot.oci.command import RuntimeCommand
@@ -32,13 +33,13 @@ class ContainerCommand(RuntimeCommand):
         if volumes:
             for m in volumes:
                 args += ["-v", m]
-        await self._exec_drop(["run", *args, image_ref])
+        create_task(self._exec_drop(["run", *args, image_ref]))
 
     async def remove(self, container: Container) -> None:
-        await self._exec_collect(["rm", "-f", container.container_id])
+        create_task(self._exec_collect(["rm", "-f", container.container_id]))
 
     async def start(self, container: Container) -> None:
-        await self._exec_collect(["start", container.container_id])
+        create_task(self._exec_collect(["start", container.container_id]))
 
     async def stop(self, container: Container) -> None:
-        await self._exec_collect(["stop", container.container_id])
+        create_task(self._exec_collect(["stop", container.container_id]))
