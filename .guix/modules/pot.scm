@@ -28,7 +28,7 @@
    (name "pot.git")
    (version "0.0.3")
    (source
-    (local-file %source-dir "pot-checkout"
+    (local-file "../.." "pot-checkout"
                 #:recursive? #t
                 #:select? vcs-file?))
    (build-system pyproject-build-system)
