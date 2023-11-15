@@ -47,7 +47,7 @@ jobs:
              %default-guix-channel)
 
       - name: Build binary tarball
-        run: guix pack -L .guix/modules --save-provenance -r pot.tar.gz -RR -S /bin=bin pot.git
+        run: guix pack -L "${PWD}/.guix/modules" --save-provenance -r pot.tar.gz -RR -S /bin=bin pot.git
 
       - name: Release
         uses: softprops/action-gh-release@v1

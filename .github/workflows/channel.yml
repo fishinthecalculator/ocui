@@ -58,7 +58,7 @@ jobs:
              %default-guix-channel)
 
       - name: Build pot.git
-        run: guix build -L .guix/modules pot.git
+        run: guix build -L "${PWD}/.guix/modules" pot.git
 
       - name: Lint pot.git
-        run: guix lint -L .guix/modules pot.git
+        run: guix lint -L "${PWD}/.guix/modules" pot.git
