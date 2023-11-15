@@ -5,6 +5,7 @@ set -eu
 myself="$(basename "$0")"
 version_file="$(pwd)/pot/res/VERSION"
 pyproject_toml="$(pwd)/pyproject.toml"
+channel_scm="$(pwd)/.guix/modules/pot.scm"
 
 current_branch="$(git rev-parse --abbrev-ref HEAD)"
 current_commit="$(git log -1 --format='%H')"
@@ -82,8 +83,12 @@ release-new-version() {
   [ "$verbose" = "1" ] && echo "Updating ${pyproject_toml}..."
   [ "$dryrun" = "0" ] && sed -i -E "s/version.*=.*\"${current}\"$/version = \"${next}\"/" "$pyproject_toml"
 
-  [ "$verbose" = "1" ] && echo "Committing ${pyproject_toml} and ${version_file}"
-  [ "$dryrun" = "0" ] && git add "${pyproject_toml}" \
+  [ "$verbose" = "1" ] && echo "Updating ${channel_scm}..."
+  [ "$dryrun" = "0" ] && sed -i "s/${current}/${next}/g" "$channel_scm"
+
+  [ "$verbose" = "1" ] && echo "Committing ${pyproject_toml}, ${channel_scm} and ${version_file}"
+  [ "$dryrun" = "0" ] && git add "${pyproject_toml}"  \
+                                 "${channel_scm}"     \
                                  "${version_file}" && \
                          git commit -m "Release v${next}."
 

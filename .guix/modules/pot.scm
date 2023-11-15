@@ -26,16 +26,10 @@
   (or (git-predicate %source-dir)
       (const #t)))                                ;not in a Git checkout
 
-(define %source-version
-  (with-input-from-file
-      (string-append %source-dir
-                     "/pot/res/VERSION")
-    read-line))
-
 (define-public pot.git
   (package
    (name "pot.git")
-   (version %source-version)
+   (version "0.0.3")
    (source
     (local-file %source-dir "pot-checkout"
                 #:recursive? #t
@@ -63,6 +57,11 @@ facilitate the most common tasks around OCI containers running on a single host.
 
 ;;; For guix build -f
 (let ((revision "0")
+      (version
+       (with-input-from-file
+           (string-append %source-dir
+                          "/pot/res/VERSION")
+         read-line))
       (commit
        (if (and (which "git") (which "cut") (which "head"))
            (read-line
@@ -70,7 +69,7 @@ facilitate the most common tasks around OCI containers running on a single host.
            "0000000000000000000000000000000000000000")))
   (package
    (inherit pot.git)
-   (version (git-version %source-version revision commit))
+   (version (git-version version revision commit))
    (arguments
     (list
      ;; There are no unit tests currently.
