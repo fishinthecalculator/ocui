@@ -20,4 +20,4 @@ class ImageCommand(RuntimeCommand):
         create_task(self._exec_collect(["rm", "-f", image.image_id]))
 
     async def pull(self, image: Image) -> None:
-        create_task(self._exec_collect(["pull", f"{image.repository}:{image.tag}"]))
+        create_task(self._exec_collect(["pull", image.format_reference()]))
