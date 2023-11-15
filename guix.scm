@@ -1,1 +1,1 @@
-.guix/modules/pot-git.scm
+.guix/modules/pot.scm
