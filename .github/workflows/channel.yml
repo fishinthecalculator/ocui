@@ -3,13 +3,18 @@ name: Guix channel
 on:
   push:
     branches: [ "main" ]
+    paths-ignore:
+        - README.md
+        - LICENSE
+        - 'scripts/**'
+        - 'etc/**'
   pull_request:
     branches: [ "main" ]
-  paths-ignore:
-      - README.md
-      - LICENSE
-      - 'scripts/**'
-      - 'etc/**'
+    paths-ignore:
+        - README.md
+        - LICENSE
+        - 'scripts/**'
+        - 'etc/**'
 
 jobs:
   build:
