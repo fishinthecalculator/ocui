@@ -16,8 +16,11 @@ jobs:
       - name: Install GNU Guix
         uses: PromyLOPh/guix-install-action@v1
 
+      - name: Pull channel
+        run: guix pull --channels=.guix/ci-channels.scm
+
       - name: Build binary tarball
-        run: guix pack -L .guix/modules --save-provenance -r pot.tar.gz -RR -S /bin=bin pot
+        run: guix pack -L .guix/modules --save-provenance -r pot.tar.gz -RR -S /bin=bin pot.git
 
       - name: Release
         uses: softprops/action-gh-release@v1
