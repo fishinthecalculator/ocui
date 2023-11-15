@@ -28,6 +28,6 @@ jobs:
         uses: PromyLOPh/guix-install-action@v1
 
       - name: Pull channel
-        run:
-           - cat '(cons* (channel (name 'pot) (url "https://github.com/fishinthecalculator/pot") (branch "main") (introduction (make-channel-introduction "10ed759852825149eb4b08c9b75777111a92048e" (openpgp-fingerprint "97A2 CB8F B066 F894 9928  CF80 DE9B E0AC E824 6F08")))) %default-guix-channels)' > channels.scm
-           - guix pull --channels=channels.scm
+        run: |
+            cat '(cons* (channel (name 'pot) (url "https://github.com/fishinthecalculator/pot") (branch "main") (introduction (make-channel-introduction "10ed759852825149eb4b08c9b75777111a92048e" (openpgp-fingerprint "97A2 CB8F B066 F894 9928  CF80 DE9B E0AC E824 6F08")))) %default-guix-channels)' > channels.scm
+            guix pull --channels=channels.scm
