@@ -8,6 +8,13 @@ on:
     branches: [ "main" ]
   pull_request:
     branches: [ "main" ]
+  paths-ignore:
+      - '.guix/**'
+      - 'guix.scm'
+      - README.md
+      - LICENSE
+      - 'scripts/**'
+      - 'etc/**'
 
 jobs:
   ci:
