@@ -15,7 +15,7 @@ class RuntimeCommand(ABC):
         return await asyncio.create_subprocess_exec(self.runtime_entrypoint, *args, stdout=stdout, stderr=stderr)
 
     async def _exec_drop(self, args: list[str]) -> None:
-        process = await self._exec(args, stdout=None)
+        process = await self._exec(args, stdout=asyncio.subprocess.DEVNULL)
         await process.wait()
         if process.returncode != 0:
             raise RuntimeError(
