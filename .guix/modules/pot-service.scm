@@ -38,7 +38,7 @@
   #~(string-append #$(uglify-field-name field-name) " = " #$value "\n"))
 
 (define (serialize-string field-name value)
-  (if (string=? field-name "extra-content")
+  (if (eq? field-name 'extra-content)
       (string-append value "\n")
       (serialize-toml-field field-name (string-append "\"" value "\""))))
 
