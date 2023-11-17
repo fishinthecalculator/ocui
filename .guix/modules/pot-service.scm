@@ -50,7 +50,7 @@
 
 (define (serialize-record->toml name value fields)
   #~(string-append
-     "[" name "]\n"
+     "[" #$name "]\n"
      #$(serialize-configuration
         value fields)))
 
