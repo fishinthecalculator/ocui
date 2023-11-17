@@ -106,7 +106,7 @@
 (define (config->file-like config)
   (list
    (string-append "pot/" (package-version (pot-configuration-pot config)) "/pot.toml")
-   (serialize-configuration config pot-configuration-fields)))
+   (pot-serialize-pot-configuration config)))
 
 (define home-pot-service-type
   (service-type (name 'pot)
