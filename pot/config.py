@@ -1,3 +1,5 @@
+import logging
+from logging.config import dictConfig
 from pathlib import Path
 
 import toml
@@ -5,6 +7,8 @@ from appdirs import AppDirs
 from textual import log
 
 from pot.utils import get_version
+
+logger = logging.getLogger(__name__)
 
 CONTAINERS_MODE = "containers"
 IMAGES_MODE = "images"
@@ -18,7 +22,25 @@ ALL_MODES = [
 
 DEFAULT_CONFIG = {
     "oci": {"runtime": "docker"},
-    "ui": {"refresh_timeout": 10, "startup_mode": "containers"}
+    "ui": {"refresh_timeout": 10, "startup_mode": "containers"},
+    "logging": {
+        "version": 1,
+        "disable_existing_loggers": False,
+        "formatters": {
+            "standard": {
+                "format": "[%(asctime)s] [%(levelno)s] [%(levelname)s] %(message)s"
+            }
+        },
+        "handlers": {
+            "console": {
+                "level": "INFO",
+                "class": "logging.StreamHandler",
+                "formatter": "standard",
+                "stream": "ext://sys.stdout"
+            }
+        },
+        "root": {"level": "INFO", "handlers": ["console"]}
+    }
 }
 
 
@@ -66,7 +88,10 @@ def merge_configs(first: dict, second: dict) -> dict:
 
     for k, v in merged.items():
         if type(v) is dict:
-            merged[k] = merge_configs(first[k], second[k])
+            if k not in second:
+                merged[k] = first[k]
+            else:
+                merged[k] = merge_configs(first[k], second[k])
 
     return merged
 
@@ -92,3 +117,8 @@ def get_config() -> dict:
             return merge_configs(DEFAULT_CONFIG, valid_config)
     else:
         return DEFAULT_CONFIG
+
+
+def init_logging():
+    config = get_config()
+    dictConfig(config["logging"])
