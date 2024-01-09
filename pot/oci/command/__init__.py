@@ -3,11 +3,14 @@ import json
 from abc import ABC
 from asyncio.subprocess import Process
 
+from pot.oci.serialization import ObjectDeserializer
+
 
 class RuntimeCommand(ABC):
 
-    def __init__(self, runtime_entrypoint: str, name: str):
+    def __init__(self, runtime_entrypoint: str, parser: ObjectDeserializer, name: str):
         self.runtime_entrypoint = runtime_entrypoint
+        self.parser = parser
         self.name = name
 
     async def _exec(self, args: list[str], stdout=asyncio.subprocess.PIPE, stderr=asyncio.subprocess.DEVNULL) -> Process:

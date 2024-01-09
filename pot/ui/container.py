@@ -5,6 +5,7 @@ from textual.widgets import RichLog
 
 from pot.oci.dataclass.container import Container
 from pot.oci.runtime import Runtime
+from pot.ui.adapters import ContainerAdapter
 from pot.ui.base.screen import RefreshTableScreen, BaseScreen
 from pot.ui.base.utils import stream_command
 from pot.ui.inspect import InspectScreen
@@ -40,6 +41,8 @@ class ContainerLogScreen(BaseScreen, ModalScreen):
 
 class ContainersScreen(RefreshTableScreen):
     """A containers listing widget."""
+
+    adapter = ContainerAdapter()
 
     BINDINGS = [
         ("i", "inspect", "Inspect"),
@@ -89,4 +92,4 @@ class ContainersScreen(RefreshTableScreen):
         return await self.get_backend().containers.ls()
 
     def _value_to_row(self, container: Container, spec: list[str]):
-        return container.to_tuple(spec)
+        return self.adapter.to_tuple(container, spec)

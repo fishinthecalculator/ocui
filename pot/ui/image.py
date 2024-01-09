@@ -1,5 +1,6 @@
 from pot.oci.dataclass.image import Image
 from pot.oci.runtime import Runtime
+from pot.ui.adapters import ImageAdapter
 from pot.ui.base.screen import RefreshTableScreen
 from pot.ui.inspect import InspectScreen
 from pot.ui.run import RunContainerScreen
@@ -7,6 +8,8 @@ from pot.ui.run import RunContainerScreen
 
 class ImagesScreen(RefreshTableScreen):
     """An images listing widget."""
+
+    adapter = ImageAdapter()
 
     BINDINGS = [
         ("i", "inspect", "Inspect"),
@@ -46,5 +49,5 @@ class ImagesScreen(RefreshTableScreen):
         return await self.get_backend().images.ls()
 
     def _value_to_row(self, image: Image, spec: list[str]) -> tuple:
-        return image.to_tuple(spec)
+        return self.adapter.to_tuple(image, spec)
 
