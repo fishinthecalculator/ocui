@@ -3,11 +3,12 @@ from asyncio.subprocess import Process
 
 from pot.oci.command import RuntimeCommand
 from pot.oci.dataclass.container import Container, ContainerState
+from pot.oci.serialization import ObjectDeserializer
 
 
 class ContainerCommand(RuntimeCommand):
-    def __init__(self, runtime_entrypoint: str):
-        super().__init__(runtime_entrypoint, "container")
+    def __init__(self, parser: ObjectDeserializer, runtime_entrypoint: str):
+        super().__init__(runtime_entrypoint, parser, "container")
 
     async def inspect(self, container: Container) -> dict:
         dict_list = await self._exec_json_list(["inspect", container.container_id, "--format", "{{ json . }}"])
@@ -21,7 +22,7 @@ class ContainerCommand(RuntimeCommand):
 
     async def ls(self) -> list[Container]:
         dict_list = await self._exec_json_list(["ls", "-a", "--format", "{{ json . }}"])
-        return [Container.from_dict(container_dict) for container_dict in dict_list]
+        return [self.parser.deserialize(container_dict) for container_dict in dict_list]
 
     async def run(self, image_ref: str, name: str | None = None, ports: list[str] | None = None, volumes: list[str] | None = None,  remove: bool = False) -> None:
         args = []
