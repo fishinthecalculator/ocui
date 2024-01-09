@@ -3,7 +3,7 @@ from functools import partial
 from textual.app import App
 from textual.command import Provider, Hits, Hit
 
-from pot.config import get_config, CONTAINERS_MODE, IMAGES_MODE, VOLUMES_MODE
+from pot.config import init_logging, get_config, CONTAINERS_MODE, IMAGES_MODE, VOLUMES_MODE
 from pot.ui.container import ContainersScreen
 from pot.ui.image import ImagesScreen
 from pot.ui.volume import VolumesScreen
@@ -54,6 +54,7 @@ class PotApp(App):
 
 
 def main():
+    init_logging()
     app = PotApp()
     app.run()
 
