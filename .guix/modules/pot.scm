@@ -26,7 +26,7 @@
 (define-public pot.git
   (package
    (name "pot.git")
-   (version "0.0.4")
+   (version "0.0.5")
    (source
     (local-file "../.." "pot-checkout"
                 #:recursive? #t
