@@ -1,6 +1,7 @@
-import datetime
+from datetime import datetime
 
 from pot.oci.serialization import DATETIME_FORMAT_STRING
+
 
 def parse_list_of_strings(string: str | list[str], separator=" ") -> list[str]:
     if string:
@@ -10,6 +11,7 @@ def parse_list_of_strings(string: str | list[str], separator=" ") -> list[str]:
             return string.split(separator)
     else:
         return []
+
 
 def parse_datetime(dtime: str) -> datetime:
     return datetime.strptime(dtime, DATETIME_FORMAT_STRING)
