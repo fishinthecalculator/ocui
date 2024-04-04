@@ -9,6 +9,7 @@ on:
     paths-ignore:
         - '.guix/**'
         - 'guix.scm'
+        - '.img/**'
         - README.md
         - LICENSE
         - 'scripts/**'
@@ -18,6 +19,7 @@ on:
     paths-ignore:
         - '.guix/**'
         - 'guix.scm'
+        - '.img/**'
         - README.md
         - LICENSE
         - 'scripts/**'
