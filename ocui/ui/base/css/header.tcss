@@ -13,5 +13,5 @@ OcuiBar {
 #logo {
     dock: right;
     color: $primary;
-    width: 18;
+    width: 20;
 }
