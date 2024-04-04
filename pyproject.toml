@@ -1,6 +1,6 @@
 [tool.poetry]
 name = "ocui"
-version = "0.0.7"
+version = "0.1.0"
 description = "This is a simple and handy text based GUI utility for dealing with boring and repetitive tasks when managing containers."
 authors = ["Giacomo Leidi <giacomo.leidi@suse.com>"]
 readme = "README.md"
