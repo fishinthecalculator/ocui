@@ -6,6 +6,8 @@ myself="$(basename "$0")"
 version_file="$(pwd)/ocui/res/VERSION"
 pyproject_toml="$(pwd)/pyproject.toml"
 channel_scm="$(pwd)/.guix/modules/ocui.scm"
+generate_badges="$(pwd)/scripts/generate_badges.sh"
+imgs="$(pwd)/.img"
 
 current_branch="$(git rev-parse --abbrev-ref HEAD)"
 current_commit="$(git log -1 --format='%H')"
@@ -85,6 +87,14 @@ release-new-version() {
 
   [ "$verbose" = "1" ] && echo "Updating ${channel_scm}..."
   [ "$dryrun" = "0" ] && sed -i "s/${current}/${next}/g" "$channel_scm"
+
+  if command -v "guix" >/dev/null; then
+
+
+    [ "$verbose" = "1" ] && echo "Generating badges..."
+    [ "$dryrun" = "0" ] && guix shell python-wrapper python-pybadges -- "${generate_badges}" && git add "${imgs}"
+
+  fi
 
   [ "$verbose" = "1" ] && echo "Committing ${pyproject_toml}, ${channel_scm} and ${version_file}"
   [ "$dryrun" = "0" ] && git add "${pyproject_toml}"  \
