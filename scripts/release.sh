@@ -3,9 +3,9 @@
 set -eu
 
 myself="$(basename "$0")"
-version_file="$(pwd)/pot/res/VERSION"
+version_file="$(pwd)/ocui/res/VERSION"
 pyproject_toml="$(pwd)/pyproject.toml"
-channel_scm="$(pwd)/.guix/modules/pot.scm"
+channel_scm="$(pwd)/.guix/modules/ocui.scm"
 
 current_branch="$(git rev-parse --abbrev-ref HEAD)"
 current_commit="$(git log -1 --format='%H')"
@@ -38,7 +38,7 @@ check-dependencies() {
 usage() {
   cat <<EOF
 Usage: ${myself} -b <bump-type> [-hpbvd]
-Release a new version of pot according to https://semver.org
+Release a new version of ocui according to https://semver.org
 
 -h,          --help                  Show this help message.
 

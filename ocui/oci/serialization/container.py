@@ -1,6 +1,6 @@
-from pot.oci.dataclass.container import Container, ContainerState
-from pot.oci.serialization import ObjectDeserializer
-from pot.oci.serialization.utils import parse_list_of_strings, parse_datetime
+from ocui.oci.dataclass.container import Container, ContainerState
+from ocui.oci.serialization import ObjectDeserializer
+from ocui.oci.serialization.utils import parse_list_of_strings, parse_datetime
 
 def parse_mounts(mounts: str) -> list[str]:
     return parse_list_of_strings(mounts)

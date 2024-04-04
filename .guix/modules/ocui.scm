@@ -1,6 +1,6 @@
 ;;; SPDX-License-Identifier: GPL-3.0-or-later
 
-(define-module (pot)
+(define-module (ocui)
   #:use-module (gnu packages python-build)
   #:use-module (gnu packages python-xyz)
   #:use-module (guix build-system pyproject)
@@ -23,12 +23,12 @@
   (or (git-predicate %source-dir)
       (const #t)))                                ;not in a Git checkout
 
-(define-public pot.git
+(define-public ocui.git
   (package
-   (name "pot.git")
+   (name "ocui.git")
    (version "0.0.7")
    (source
-    (local-file "../.." "pot-checkout"
+    (local-file "../.." "ocui-checkout"
                 #:recursive? #t
                 #:select? vcs-file?))
    (build-system pyproject-build-system)
@@ -44,11 +44,11 @@
                             python-textual-0.41
                             python-toml))
    (home-page
-    "https://github.com/fishinthecalculator/pot")
+    "https://github.com/fishinthecalculator/ocui")
    (synopsis
     "Simple text based UI for managing containers")
-   (description "@code{pot} is a terminal user interface to
+   (description "@code{ocui} is a terminal user interface to
 facilitate the most common tasks around OCI containers running on a single host.")
    (license license:gpl3)))
 
-pot.git
+ocui.git

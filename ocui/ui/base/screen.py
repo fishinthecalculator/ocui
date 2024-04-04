@@ -6,9 +6,9 @@ from textual.containers import Vertical
 from textual.screen import Screen
 from textual.widgets import Footer, DataTable
 
-from pot.oci.runtime import Runtime
-from pot.ui.base.header import PotHeader, PotBar
-from pot.ui.base.utils import poll_command
+from ocui.oci.runtime import Runtime
+from ocui.ui.base.header import OcuiHeader, OcuiBar
+from ocui.ui.base.utils import poll_command
 
 
 class MetaScreen(type(Screen), ABCMeta):
@@ -16,7 +16,7 @@ class MetaScreen(type(Screen), ABCMeta):
 
 
 class BaseScreen(Screen, ABC, metaclass=MetaScreen):
-    """The base pot screen."""
+    """The base ocui screen."""
     def __init__(self, oci_backend: Runtime, container_title: str):
         super().__init__()
         self.oci_backend = oci_backend
@@ -34,8 +34,8 @@ class BaseScreen(Screen, ABC, metaclass=MetaScreen):
         return self.body.border_title
 
     def compose(self) -> ComposeResult:
-        yield PotHeader()
-        yield PotBar()
+        yield OcuiHeader()
+        yield OcuiBar()
         with self.body:
             yield from self._compose()
         yield Footer()

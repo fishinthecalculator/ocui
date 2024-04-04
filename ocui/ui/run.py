@@ -6,10 +6,10 @@ from textual.containers import Horizontal, Vertical, VerticalScroll
 from textual.screen import ModalScreen
 from textual.widgets import Button, Checkbox, Footer, Input, Label, Select
 
-from pot.config import CONTAINERS_MODE
-from pot.oci.dataclass.image import Image
-from pot.oci.runtime import Runtime
-from pot.ui.base.header import PotHeader
+from ocui.config import CONTAINERS_MODE
+from ocui.oci.dataclass.image import Image
+from ocui.oci.runtime import Runtime
+from ocui.ui.base.header import OcuiHeader
 
 @dataclass
 class RunContainerResult:
@@ -43,7 +43,7 @@ class RunContainerScreen(ModalScreen):
         self.proceed_btn = Button("Proceed", id="proceed_button")
 
     def compose(self) -> ComposeResult:
-        yield PotHeader()
+        yield OcuiHeader()
 
         with Horizontal(id="top_row"):
             yield self.image_select

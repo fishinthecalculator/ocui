@@ -5,7 +5,7 @@ set -eu
 project_root="$(cd "$(dirname "$(dirname "$0")")" && pwd)"
 
 get_version () {
-  cat "${project_root}/pot/res/VERSION"
+  cat "${project_root}/ocui/res/VERSION"
 }
 
 python -m pybadges \
@@ -19,7 +19,7 @@ python -m pybadges \
 python -m pybadges \
     --left-text="pypi" \
     --right-text="$(get_version)" \
-    --whole-link="https://pypi.org/project/pot/" \
+    --whole-link="https://pypi.org/project/ocui/" \
     --browser
 
 python -m pybadges \

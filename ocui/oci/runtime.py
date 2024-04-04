@@ -1,12 +1,12 @@
 from abc import ABC
 
-from pot.config import get_config
-from pot.oci.command.container import ContainerCommand
-from pot.oci.command.image import ImageCommand
-from pot.oci.serialization import ObjectDeserializer
-from pot.oci.serialization.container import DockerContainerDeserializer, PodmanContainerDeserializer
-from pot.oci.serialization.image import DockerImageDeserializer, PodmanImageDeserializer
-from pot.oci.serialization.solver import resolve_deserializers
+from ocui.config import get_config
+from ocui.oci.command.container import ContainerCommand
+from ocui.oci.command.image import ImageCommand
+from ocui.oci.serialization import ObjectDeserializer
+from ocui.oci.serialization.container import DockerContainerDeserializer, PodmanContainerDeserializer
+from ocui.oci.serialization.image import DockerImageDeserializer, PodmanImageDeserializer
+from ocui.oci.serialization.solver import resolve_deserializers
 
 
 class Runtime(ABC):

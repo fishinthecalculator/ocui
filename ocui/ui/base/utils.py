@@ -1,7 +1,7 @@
 import time
 from asyncio import sleep
 
-from pot.config import get_config
+from ocui.config import get_config
 
 
 def next_update(start: time) -> int:

@@ -3,7 +3,7 @@ import json
 from abc import ABC
 from asyncio.subprocess import Process
 
-from pot.oci.serialization import ObjectDeserializer
+from ocui.oci.serialization import ObjectDeserializer
 
 
 class RuntimeCommand(ABC):

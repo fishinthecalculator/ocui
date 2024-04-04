@@ -1,9 +1,9 @@
 from asyncio import create_task
 from asyncio.subprocess import Process
 
-from pot.oci.command import RuntimeCommand
-from pot.oci.dataclass.container import Container, ContainerState
-from pot.oci.serialization import ObjectDeserializer
+from ocui.oci.command import RuntimeCommand
+from ocui.oci.dataclass.container import Container, ContainerState
+from ocui.oci.serialization import ObjectDeserializer
 
 
 class ContainerCommand(RuntimeCommand):

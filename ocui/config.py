@@ -6,7 +6,7 @@ import toml
 from appdirs import AppDirs
 from textual import log
 
-from pot.utils import get_version
+from ocui.utils import get_version
 
 logger = logging.getLogger(__name__)
 
@@ -45,11 +45,11 @@ DEFAULT_CONFIG = {
 
 
 def get_config_path() -> Path | None:
-    dirs = AppDirs(appname="pot", version=get_version())
+    dirs = AppDirs(appname="ocui", version=get_version())
 
     for config_path in [
-        Path(dirs.user_config_dir, "pot.toml").absolute(),
-        Path(dirs.site_config_dir, "pot.toml").absolute()
+        Path(dirs.user_config_dir, "ocui.toml").absolute(),
+        Path(dirs.site_config_dir, "ocui.toml").absolute()
     ]:
         if config_path and Path(config_path).exists():
             log.debug(f"Loading configuration from {config_path}")
@@ -100,9 +100,9 @@ def get_config() -> dict:
     """
     Creates a configuration object. Configuration files are checked in this order:
 
-      1. User configuration directory. On Linux that's `$XDG_CONFIG_HOME/pot/<pot-version>`;
+      1. User configuration directory. On Linux that's `$XDG_CONFIG_HOME/ocui/<ocui-version>`;
       2. System configuration directory. On Linux that's the first element of
-         `$XDG_CONFIG_DIRS` + `/pot/<pot-version>`.
+         `$XDG_CONFIG_DIRS` + `/ocui/<ocui-version>`.
       3. The default configuration hardcoded in the package.
 
     The first available configuration will be loaded.

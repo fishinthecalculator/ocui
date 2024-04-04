@@ -3,13 +3,13 @@ from textual.app import ComposeResult
 from textual.screen import ModalScreen
 from textual.widgets import RichLog
 
-from pot.oci.dataclass.container import Container
-from pot.oci.runtime import Runtime
-from pot.ui.adapters import ContainerAdapter
-from pot.ui.base.screen import RefreshTableScreen, BaseScreen
-from pot.ui.base.utils import stream_command
-from pot.ui.inspect import InspectScreen
-from pot.ui.run import RunContainerScreen
+from ocui.oci.dataclass.container import Container
+from ocui.oci.runtime import Runtime
+from ocui.ui.adapters import ContainerAdapter
+from ocui.ui.base.screen import RefreshTableScreen, BaseScreen
+from ocui.ui.base.utils import stream_command
+from ocui.ui.inspect import InspectScreen
+from ocui.ui.run import RunContainerScreen
 
 
 class ContainerLogScreen(BaseScreen, ModalScreen):

@@ -1,6 +1,6 @@
 from datetime import datetime
 
-from pot.oci.serialization import DATETIME_FORMAT_STRING
+from ocui.oci.serialization import DATETIME_FORMAT_STRING
 
 
 def parse_list_of_strings(string: str | list[str], separator=" ") -> list[str]:

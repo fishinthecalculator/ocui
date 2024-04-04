@@ -47,8 +47,8 @@ jobs:
                (openpgp-fingerprint
                 "8D10 60B9 6BB8 292E 829B  7249 AED4 1CC1 93B7 01E2"))))
              (channel
-              (name 'pot)
-              (url "https://github.com/fishinthecalculator/pot")
+              (name 'ocui)
+              (url "https://github.com/fishinthecalculator/ocui")
               (branch "main")
               (introduction
                (make-channel-introduction
@@ -57,8 +57,8 @@ jobs:
                 "97A2 CB8F B066 F894 9928  CF80 DE9B E0AC E824 6F08"))))
              %default-guix-channel)
 
-      - name: Build pot.git
-        run: guix build -L "${PWD}/.guix/modules" pot.git
+      - name: Build ocui.git
+        run: guix build -L "${PWD}/.guix/modules" ocui.git
 
-      - name: Lint pot.git
-        run: guix lint -L "${PWD}/.guix/modules" pot.git
+      - name: Lint ocui.git
+        run: guix lint -L "${PWD}/.guix/modules" ocui.git

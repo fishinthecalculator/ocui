@@ -38,8 +38,8 @@ jobs:
                (openpgp-fingerprint
                 "8D10 60B9 6BB8 292E 829B  7249 AED4 1CC1 93B7 01E2"))))
              (channel
-              (name 'pot)
-              (url "https://github.com/fishinthecalculator/pot")
+              (name 'ocui)
+              (url "https://github.com/fishinthecalculator/ocui")
               (branch "main")
               (introduction
                (make-channel-introduction
@@ -49,9 +49,9 @@ jobs:
              %default-guix-channel)
 
       - name: Build binary tarball
-        run: guix pack -L "${PWD}/.guix/modules" --save-provenance -r pot.tar.gz -RR -S /bin=bin pot.git
+        run: guix pack -L "${PWD}/.guix/modules" --save-provenance -r ocui.tar.gz -RR -S /bin=bin ocui.git
 
       - name: Release
         uses: softprops/action-gh-release@v1
         with:
-          files: pot.tar.gz
+          files: ocui.tar.gz

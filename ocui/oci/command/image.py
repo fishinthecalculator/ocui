@@ -1,8 +1,8 @@
 from asyncio import create_task
 
-from pot.oci.command import RuntimeCommand
-from pot.oci.dataclass.image import Image
-from pot.oci.serialization import ObjectDeserializer
+from ocui.oci.command import RuntimeCommand
+from ocui.oci.dataclass.image import Image
+from ocui.oci.serialization import ObjectDeserializer
 
 
 class ImageCommand(RuntimeCommand):

@@ -3,7 +3,7 @@ from textual.containers import Vertical, VerticalScroll
 from textual.screen import ModalScreen
 from textual.widgets import Footer, Label
 
-from pot.ui.base.header import PotHeader
+from ocui.ui.base.header import OcuiHeader
 
 
 def render_dict(key: str, value: dict):
@@ -37,7 +37,7 @@ class InspectScreen(ModalScreen):
         self.root.border_title = f"{name}\\details"
 
     def compose(self) -> ComposeResult:
-        yield PotHeader()
+        yield OcuiHeader()
 
         if len(self.value.keys()) > 0:
             with self.root:

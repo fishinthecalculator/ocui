@@ -1,4 +1,4 @@
-PotBar {
+OcuiBar {
     layout: horizontal;
     height: 8;
     margin: 1;

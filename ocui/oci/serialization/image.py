@@ -1,6 +1,6 @@
-from pot.oci.dataclass.image import Image
-from pot.oci.serialization import ObjectDeserializer
-from pot.oci.serialization.utils import parse_datetime
+from ocui.oci.dataclass.image import Image
+from ocui.oci.serialization import ObjectDeserializer
+from ocui.oci.serialization.utils import parse_datetime
 
 class DockerImageDeserializer(ObjectDeserializer):
     def deserialize(self, dict_object):

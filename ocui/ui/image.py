@@ -1,9 +1,9 @@
-from pot.oci.dataclass.image import Image
-from pot.oci.runtime import Runtime
-from pot.ui.adapters import ImageAdapter
-from pot.ui.base.screen import RefreshTableScreen
-from pot.ui.inspect import InspectScreen
-from pot.ui.run import RunContainerScreen
+from ocui.oci.dataclass.image import Image
+from ocui.oci.runtime import Runtime
+from ocui.ui.adapters import ImageAdapter
+from ocui.ui.base.screen import RefreshTableScreen
+from ocui.ui.inspect import InspectScreen
+from ocui.ui.run import RunContainerScreen
 
 
 class ImagesScreen(RefreshTableScreen):

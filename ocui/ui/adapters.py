@@ -1,8 +1,8 @@
 import datetime
 from abc import ABC, abstractmethod
 
-from pot.oci.dataclass.container import Container
-from pot.oci.dataclass.image import Image
+from ocui.oci.dataclass.container import Container
+from ocui.oci.dataclass.image import Image
 
 
 UI_DATETIME_FORMAT_STRING = "%Y-%m-%d %H:%M:%S %z %Z"

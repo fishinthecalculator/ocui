@@ -3,11 +3,11 @@ from functools import partial
 from textual.app import App
 from textual.command import Provider, Hits, Hit
 
-from pot.config import init_logging, get_config, CONTAINERS_MODE, IMAGES_MODE, VOLUMES_MODE
-from pot.ui.container import ContainersScreen
-from pot.ui.image import ImagesScreen
-from pot.ui.volume import VolumesScreen
-from pot.utils import get_tcss_path
+from ocui.config import init_logging, get_config, CONTAINERS_MODE, IMAGES_MODE, VOLUMES_MODE
+from ocui.ui.container import ContainersScreen
+from ocui.ui.image import ImagesScreen
+from ocui.ui.volume import VolumesScreen
+from ocui.utils import get_tcss_path
 
 
 class ScreensCommands(Provider):
@@ -16,7 +16,7 @@ class ScreensCommands(Provider):
     async def search(self, query: str) -> Hits:
         matcher = self.matcher(query)
         app = self.app
-        assert isinstance(app, PotApp)
+        assert isinstance(app, OcuiApp)
 
         def build_hit(entity):
             command = f"open {entity}"
@@ -35,7 +35,7 @@ class ScreensCommands(Provider):
             yield build_hit(VOLUMES_MODE)
 
 
-class PotApp(App):
+class OcuiApp(App):
     """A Textual app to manage OCI containers."""
 
     COMMANDS = App.COMMANDS | {ScreensCommands}
@@ -55,7 +55,7 @@ class PotApp(App):
 
 def main():
     init_logging()
-    app = PotApp()
+    app = OcuiApp()
     app.run()
 
 
