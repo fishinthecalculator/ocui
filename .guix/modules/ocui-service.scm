@@ -117,4 +117,4 @@
                                    (compose list ocui-configuration-ocui))))
                 (default-value (ocui-configuration))
                 (description
-                 "Installs code{ocui} in Guix Home's profile and creates a suitable configuration.")))
+                 "Installs @code{ocui} in Guix Home's profile and creates a suitable configuration.")))
