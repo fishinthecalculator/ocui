@@ -2,6 +2,7 @@
 
 [![Python package](https://github.com/fishinthecalculator/ocui/actions/workflows/python-package.yml/badge.svg?branch=main)](https://github.com/fishinthecalculator/ocui/actions/workflows/python-package.yml) 
 ![Python versions](https://raw.githubusercontent.com/fishinthecalculator/ocui/main/.img/python.svg)
+[![PyPI version](https://raw.githubusercontent.com/fishinthecalculator/ocui/master/.img/pypi.svg)](https://pypi.org/project/ocui/)
 ![License](https://raw.githubusercontent.com/fishinthecalculator/ocui/main/.img/license.svg)
 
 `ocui` is a terminal user interface to facilitate the most common tasks around OCI containers running on a single host.
