@@ -5,9 +5,25 @@
 [![PyPI version](https://raw.githubusercontent.com/fishinthecalculator/ocui/master/.img/pypi.svg)](https://pypi.org/project/ocui/)
 ![License](https://raw.githubusercontent.com/fishinthecalculator/ocui/main/.img/license.svg)
 
-`ocui` is a terminal user interface to facilitate the most common tasks around OCI containers running on a single host.
+`ocui` is a terminal user interface to facilitate the most common tasks around OCI containers running on a single host. You can create, start and kill containers with few keystrokes, as well as look at logs in real time, or inspect images. `ocui` continually watches the system for changes and offers adequate commands to interact with the system resources.
 
-![ocui screenshot](https://raw.githubusercontent.com/fishinthecalculator/ocui/main/.img/screenshot.png)
+## Screenshots
+
+### Containers running in the system
+
+![ocui containers](https://raw.githubusercontent.com/fishinthecalculator/ocui/main/.img/screenshot.png)
+
+### Real time logs
+
+![ocui logs](https://raw.githubusercontent.com/fishinthecalculator/ocui/main/.img/logs.png)
+
+### Container creation
+
+![ocui create container](https://raw.githubusercontent.com/fishinthecalculator/ocui/main/.img/container_creation.png)
+
+### Container inspection
+
+![ocui inspect container](https://raw.githubusercontent.com/fishinthecalculator/ocui/main/.img/container_inspection.png)
 
 ## Contributing
 
