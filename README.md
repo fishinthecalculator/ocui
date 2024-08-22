@@ -30,7 +30,7 @@
 All contributions are welcome. If you have commit access please remember to setup the authentication hook with
 
 ```bash
-cp etc/git/pre-push .git/hooks/pre-push
+guix git authenticate --cache-key=channels/ocui --stats "10ed759852825149eb4b08c9b75777111a92048e" "97A2 CB8F B066 F894 9928  CF80 DE9B E0AC E824 6F08"
 ```
 
 ## License
