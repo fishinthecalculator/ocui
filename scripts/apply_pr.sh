@@ -26,5 +26,3 @@ git cherry-pick -s "${main}..forked/${branch}"
 git branch -r -D "forked/${branch}"
 git remote remove forked
 
-# Run guix git authenticate
-guix shell make -- make authenticate
