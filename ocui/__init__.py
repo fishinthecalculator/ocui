@@ -8,4 +8,4 @@ ocui continually watches the system for changes and offers adequate commands
 to interact with the system resources.
 """
 
-__version__ = "0.1.0"
+__version__ = "0.1.1"

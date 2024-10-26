@@ -26,7 +26,7 @@
 (define-public ocui.git
   (package
    (name "ocui.git")
-   (version "0.1.0")
+   (version "0.1.1")
    (source
     (local-file "../.." "ocui-checkout"
                 #:recursive? #t
