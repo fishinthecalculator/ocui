@@ -3,9 +3,9 @@ from datetime import datetime
 
 @dataclass
 class Image:
+    image_id: str
     repository: str
     tag: str = "latest"
-    image_id: str | None = None
     created: datetime | None = None
     size: str | None = None
 
@@ -13,4 +13,4 @@ class Image:
         return f"{self.repository}:{self.tag}"
 
     def get_key(self) -> str:
-        return self.format_reference()
+        return self.image_id
