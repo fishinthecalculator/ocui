@@ -36,9 +36,9 @@
     (list
      ;; There are no unit tests currently.
      #:tests? #f))
-   (native-inputs (list poetry
-                        python-debugpy
+   (native-inputs (list python-debugpy
                         python-flake8
+                        python-flit
                         python-textual-dev))
    (propagated-inputs (list python-appdirs
                             python-textual-0.41

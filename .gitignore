@@ -1,3 +1,4 @@
+.pypirc
 .idea
 .venv
 *.pyc

@@ -1,24 +1,29 @@
-[tool.poetry]
-name = "ocui"
-version = "0.1.0"
-description = "This is a simple and handy text based GUI utility for dealing with boring and repetitive tasks when managing containers."
-authors = ["Giacomo Leidi <giacomo.leidi@suse.com>"]
-readme = "README.md"
-
-[tool.poetry.dependencies]
-python = "^3.10"
-appdirs = "~1.4"
-textual = "~0.41"
-toml = "~0.10"
-
-[tool.poetry.dev-dependencies]
-flake8 = "~6.1"
-debugpy = "~1.6"
-textual-dev = "~1.2"
-
 [build-system]
-requires = ["poetry-core"]
-build-backend = "poetry.core.masonry.api"
+requires = ["flit_core >=3.2,<4"]
+build-backend = "flit_core.buildapi"
 
-[tool.poetry.scripts]
+[project]
+name = "ocui"
+license = {file = "LICENSE"}
+readme = "README.md"
+authors = [{name = "Giacomo Leidi", email = "goodoldpaul@autistici.org"}]
+dynamic = ["version", "description"]
+dependencies = [
+    "appdirs ~=1.4",
+    "textual ~=0.41",
+    "toml ~=0.10",
+]
+requires-python = ">=3.10"
+
+[project.optional-dependencies]
+test = [
+    "flake8 ~=6.1",
+    "debugpy ~=1.6",
+    "textual-dev ~=1.2",
+]
+
+[project.scripts]
 ocui="ocui.app:main"
+
+[project.urls]
+Home = "https://github.com/fishinthecalculator/ocui"
