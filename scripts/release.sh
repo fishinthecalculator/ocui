@@ -4,7 +4,7 @@ set -eu
 
 myself="$(basename "$0")"
 version_file="$(pwd)/ocui/res/VERSION"
-pyproject_toml="$(pwd)/pyproject.toml"
+init_py="$(pwd)/ocui/__init__.py"
 channel_scm="$(pwd)/.guix/modules/ocui.scm"
 generate_badges="$(pwd)/scripts/generate_badges.sh"
 imgs="$(pwd)/.img"
@@ -16,7 +16,7 @@ verbose=0
 publish=0
 bump="INVALID"
 
-required_commands=("getopt" "pysemver" "git" "poetry")
+required_commands=("getopt" "pysemver" "git" "flit")
 valid_types=('major' 'minor' 'patch' 'prerelease' 'build')
 
 error() {
@@ -64,12 +64,6 @@ validate-bump-type() {
   fi
 }
 
-validate-pypi-token() {
-  if [ -z ${PYPI_TOKEN+x} ]; then
-    crash "The PYPI_TOKEN environment variable is required but unset. Please set it to upload the new release to PyPI."
-  fi
-}
-
 current-version() {
   cat "${version_file}"
 }
@@ -82,14 +76,13 @@ release-new-version() {
   [ "$verbose" = "1" ] && echo "Updating ${version_file}..."
   [ "$dryrun" = "0" ] && printf "%s" "$next" >"$version_file"
 
-  [ "$verbose" = "1" ] && echo "Updating ${pyproject_toml}..."
-  [ "$dryrun" = "0" ] && sed -i -E "s/version.*=.*\"${current}\"$/version = \"${next}\"/" "$pyproject_toml"
+  [ "$verbose" = "1" ] && echo "Updating ${init_py}..."
+  [ "$dryrun" = "0" ] && sed -i -E "s/__version__.*=.*\"${current}\"$/__version__ = \"${next}\"/" "$init_py"
 
   [ "$verbose" = "1" ] && echo "Updating ${channel_scm}..."
   [ "$dryrun" = "0" ] && sed -i "s/${current}/${next}/g" "$channel_scm"
 
   if command -v "guix" >/dev/null; then
-
 
     [ "$verbose" = "1" ] && echo "Generating badges..."
     [ "$dryrun" = "0" ] && guix shell python-wrapper python-pybadges -- "${generate_badges}" && git add "${imgs}"
@@ -106,7 +99,7 @@ release-new-version() {
   [ "$dryrun" = "0" ] && git tag "v${next}"
 
   [ "$verbose" = "1" ] && echo "Building package..."
-  [ "$dryrun" = "0" ] && poetry build
+  [ "$dryrun" = "0" ] && flit build
 
 }
 
@@ -178,14 +171,15 @@ if [ "$bump" != "INVALID" ]; then
 fi
 
 if [ "$publish" = "1" ]; then
-  validate-pypi-token
 
   # We make sure to actually publish the tagged version
   git checkout "v$(current-version)"
   set +e
   # If this command fails we still want to go back to the
   # branch we were on.
-  poetry publish -u "__token__" -p "$PYPI_TOKEN"
+  FLIT_USERNAME="__token__"
+  SOURCE_DATE_EPOCH=$(date +%s)
+  flit publish
   set -e
   restore-git-state
 fi
