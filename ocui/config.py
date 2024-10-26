@@ -6,7 +6,7 @@ import toml
 from appdirs import AppDirs
 from textual import log
 
-from ocui.utils import get_version
+from ocui import __version__
 
 logger = logging.getLogger(__name__)
 
@@ -45,7 +45,7 @@ DEFAULT_CONFIG = {
 
 
 def get_config_path() -> Path | None:
-    dirs = AppDirs(appname="ocui", version=get_version())
+    dirs = AppDirs(appname="ocui", version=__version__)
 
     for config_path in [
         Path(dirs.user_config_dir, "ocui.toml").absolute(),

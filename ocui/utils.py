@@ -22,11 +22,6 @@ def get_logo() -> str:
     return read_resource(logo_ref)
 
 
-def get_version() -> str:
-    version_ref = OCUI_RESOURCES / "VERSION"
-    return read_resource(version_ref)
-
-
 def get_egg() -> str:
     egg_ref = OCUI_RESOURCES / "egg"
     return read_resource(egg_ref)

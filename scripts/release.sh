@@ -3,7 +3,6 @@
 set -eu
 
 myself="$(basename "$0")"
-version_file="$(pwd)/ocui/res/VERSION"
 init_py="$(pwd)/ocui/__init__.py"
 channel_scm="$(pwd)/.guix/modules/ocui.scm"
 generate_badges="$(pwd)/scripts/generate_badges.sh"
@@ -65,16 +64,13 @@ validate-bump-type() {
 }
 
 current-version() {
-  cat "${version_file}"
+  cat "$init_py" | grep version | sed -E 's/^.*__version__ = "(.*)".*$/\1/'
 }
 
 release-new-version() {
   current="$(current-version)"
   next="$(pysemver bump "$1" "$current")"
   echo "RELEASING VERSION: ${next}"
-
-  [ "$verbose" = "1" ] && echo "Updating ${version_file}..."
-  [ "$dryrun" = "0" ] && printf "%s" "$next" >"$version_file"
 
   [ "$verbose" = "1" ] && echo "Updating ${init_py}..."
   [ "$dryrun" = "0" ] && sed -i -E "s/__version__.*=.*\"${current}\"$/__version__ = \"${next}\"/" "$init_py"
@@ -89,10 +85,9 @@ release-new-version() {
 
   fi
 
-  [ "$verbose" = "1" ] && echo "Committing ${pyproject_toml}, ${channel_scm} and ${version_file}"
-  [ "$dryrun" = "0" ] && git add "${pyproject_toml}"  \
-                                 "${channel_scm}"     \
-                                 "${version_file}" && \
+  [ "$verbose" = "1" ] && echo "Committing ${init_py} and ${channel_scm}"
+  [ "$dryrun" = "0" ] && git add "${init_py}"  \
+                                 "${channel_scm}"  && \
                          git commit -m "Release v${next}."
 
   [ "$verbose" = "1" ] && echo "Tagging Git HEAD with v${next}"

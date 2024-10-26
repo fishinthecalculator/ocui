@@ -3,18 +3,19 @@
 set -eu
 
 project_root="$(cd "$(dirname "$(dirname "$0")")" && pwd)"
+init_py="${project_root}/ocui/__init__.py"
 imgs="${project_root}/.img"
 license="${imgs}/license.svg"
 python="${imgs}/python.svg"
 pypi="${imgs}/pypi.svg"
 
 get_version () {
-  cat "${project_root}/ocui/res/VERSION"
+  cat "$init_py" | grep version | sed -E 's/^.*__version__ = "(.*)".*$/\1/'
 }
 
 python -m pybadges \
     --left-text="python" \
-    --right-text="3.10, 3.11" \
+    --right-text="3.10, 3.11, 3.12" \
     --whole-link="https://www.python.org/" \
     --logo='https://dev.w3.org/SVG/tools/svgweb/samples/svg-files/python.svg' \
     --embed-logo=yes > "${python}"

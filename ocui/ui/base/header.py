@@ -3,7 +3,8 @@ import os
 from textual.app import ComposeResult
 from textual.widgets import Header, Static, Markdown
 
-from ocui.utils import get_logo, get_version
+from ocui import __version__
+from ocui.utils import get_logo
 
 
 class OcuiHeader(Header):
@@ -27,7 +28,7 @@ class OcuiContext(Static):
     def compose(self) -> ComposeResult:
         """Create child widgets of the context widget."""
         yield Markdown(
-            OcuiContext._format_value("local", get_version(), os.environ["USER"])
+            OcuiContext._format_value("local", __version__, os.environ["USER"])
         )
 
 
