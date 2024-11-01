@@ -7,7 +7,7 @@
  (dependencies
   (channel
    (name small-guix)
-   (url "https://gitlab.com/orang3/small-guix")
+   (url "https://codeberg.org/fishinthecalculator/small-guix.git")
    ;; Enable signature verification:
    (introduction
     (channel-introduction
