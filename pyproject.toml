@@ -10,7 +10,7 @@ authors = [{name = "Giacomo Leidi", email = "goodoldpaul@autistici.org"}]
 dynamic = ["version", "description"]
 dependencies = [
     "appdirs ~=1.4",
-    "textual ~=0.41",
+    "textual ~=0.50",
     "toml ~=0.10",
 ]
 requires-python = ">=3.10"

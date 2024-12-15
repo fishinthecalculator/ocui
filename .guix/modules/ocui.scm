@@ -9,10 +9,7 @@
   #:use-module ((guix licenses)
                 #:prefix license:)
   #:use-module (guix packages)
-  #:use-module (guix utils)
-  ;; Temporary, when python-textual-0.41 is upstreamed
-  ;; this dependency can be dropped.
-  #:use-module (small-guix packages python-xyz))
+  #:use-module (guix utils))
 
 (define %source-dir
   (dirname (dirname (current-source-directory))))
@@ -38,10 +35,9 @@
      #:tests? #f))
    (native-inputs (list python-debugpy
                         python-flake8
-                        python-flit
-                        python-textual-dev))
+                        python-flit))
    (propagated-inputs (list python-appdirs
-                            python-textual-0.41
+                            python-textual
                             python-toml))
    (home-page
     "https://github.com/fishinthecalculator/ocui")

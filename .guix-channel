@@ -2,15 +2,4 @@
 
 (channel
  (version 0)
- (directory ".guix/modules")  ;look for package modules under .guix/modules/
- ;; Temporary, required until python-textual-0.41 isn't upstreamed.
- (dependencies
-  (channel
-   (name small-guix)
-   (url "https://codeberg.org/fishinthecalculator/small-guix.git")
-   ;; Enable signature verification:
-   (introduction
-    (channel-introduction
-     (version 0)
-     (commit "f260da13666cd41ae3202270784e61e062a3999c")
-     (signer "8D10 60B9 6BB8 292E 829B  7249 AED4 1CC1 93B7 01E2"))))))
+ (directory ".guix/modules"))  ;look for package modules under .guix/modules/
