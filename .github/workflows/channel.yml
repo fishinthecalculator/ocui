@@ -41,14 +41,6 @@ jobs:
           channels: |-
             (list
              (channel
-              (name 'small-guix)
-              (url "https://gitlab.com/orang3/small-guix")
-              (introduction
-               (make-channel-introduction
-                "f260da13666cd41ae3202270784e61e062a3999c"
-               (openpgp-fingerprint
-                "8D10 60B9 6BB8 292E 829B  7249 AED4 1CC1 93B7 01E2"))))
-             (channel
               (name 'ocui)
               (url "https://github.com/fishinthecalculator/ocui")
               (branch "main")
